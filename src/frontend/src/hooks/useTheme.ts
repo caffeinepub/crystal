@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const THEME_STORAGE_KEY = 'theme';
 
-type Theme = 'white' | 'black' | 'orange' | 'yellow';
+type Theme = 'white' | 'black';
 
 function getSystemTheme(): Theme {
   if (typeof window === 'undefined') return 'white';
@@ -11,9 +11,10 @@ function getSystemTheme(): Theme {
 
 function migrateOldTheme(stored: string | null): Theme | null {
   if (!stored) return null;
-  if (stored === 'light') return 'white';
+  // Migrate old theme values
+  if (stored === 'light' || stored === 'orange' || stored === 'yellow') return 'white';
   if (stored === 'dark') return 'black';
-  if (stored === 'white' || stored === 'black' || stored === 'orange' || stored === 'yellow') {
+  if (stored === 'white' || stored === 'black') {
     return stored as Theme;
   }
   return null;

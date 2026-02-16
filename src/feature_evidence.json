@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-extend-the-theme-system-so-users-can-select-four-themes-white-black-orange-and-yellow-with-the-selection-persisted-in-localstorage-and-applied-on-page-load",
-      "featureTitle": "Extend the theme system so users can select four themes: White, Black, Orange, and Yellow, with the selection persisted in localStorage and applied on page load.",
+      "featureId": "feature-update-the-mgp-validation-logic-so-the-accepted-format-is-exactly-the-prefix-mgp-capital-m-then-gp-then-hyphen-followed-by-one-or-more-letters-and-or-numbers-a-z-a-z-0-9",
+      "featureTitle": "Update the MGP validation logic so the accepted format is exactly the prefix \"Mgp-\" (capital M, then gp, then hyphen) followed by one or more letters and/or numbers (A–Z, a–z, 0–9).",
       "files": [
-        "frontend/src/hooks/useTheme.ts"
+        "frontend/src/lib/mgp.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -20,10 +20,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-global-css-theme-variables-in-frontend-src-index-css-to-define-appropriate-css-custom-property-sets-for-the-white-black-orange-and-yellow-themes-so-that-tailwind-tokens-bg-background-text-foreground-bg-card-border-border-bg-primary-bg-accent-ring-etc-visually-change-with-the-selected-theme",
-      "featureTitle": "Update the global CSS theme variables in frontend/src/index.css to define appropriate CSS custom property sets for the White, Black, Orange, and Yellow themes so that Tailwind tokens (bg-background, text-foreground, bg-card, border-border, bg-primary, bg-accent, ring, etc.) visually change with the selected theme.",
+      "featureId": "feature-update-the-gen-4-elc-options-mgp-entry-ui-to-refer-to-mgp-licence-and-show-the-required-format-using-the-exact-prefix-mgp-in-user-facing-text-title-description-label-placeholder-error",
+      "featureTitle": "Update the Gen 4 (ELC options) Mgp entry UI to refer to \"Mgp licence\" and show the required format using the exact prefix \"Mgp-\" in user-facing text (title/description/label/placeholder/error).",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/pages/Gen4ElcOptions.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -38,10 +38,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-bottom-themetogglebar-to-let-the-user-switch-among-the-four-themes-white-black-orange-yellow-and-ensure-aria-label-text-accurately-reflects-the-action-and-the-available-themes",
-      "featureTitle": "Update the bottom ThemeToggleBar to let the user switch among the four themes (White, Black, Orange, Yellow) and ensure aria-label text accurately reflects the action and the available themes.",
+      "featureId": "feature-update-the-gen-5-options-mgp-entry-ui-to-refer-to-mgp-licence-and-show-the-required-format-using-the-exact-prefix-mgp-in-user-facing-text-title-description-label-placeholder-error",
+      "featureTitle": "Update the Gen 5 options Mgp entry UI to refer to \"Mgp licence\" and show the required format using the exact prefix \"Mgp-\" in user-facing text (title/description/label/placeholder/error).",
       "files": [
-        "frontend/src/components/ThemeToggleBar.tsx"
+        "frontend/src/pages/Gen5Options.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -52,24 +52,6 @@
       ],
       "testIds": [
         "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-circular-indicator-in-themetogglebar-continues-to-reflect-the-currently-active-theme-colors-by-relying-on-existing-semantic-tokens-e-g-bg-primary-and-bg-accent-so-it-updates-automatically-for-white-black-orange-yellow-themes-as-well",
-      "featureTitle": "Ensure the circular indicator in ThemeToggleBar continues to reflect the currently active theme colors by relying on existing semantic tokens (e.g., bg-primary and bg-accent) so it updates automatically for White/Black/Orange/Yellow themes as well.",
-      "files": [
-        "frontend/src/components/ThemeToggleBar.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
       ],
       "confidence": "high"
     }

@@ -1,96 +1,83 @@
 {
   "kind": "build_request",
-  "title": "Add White, Black, Orange, and Yellow UI themes",
+  "title": "Update Gen 4 & Gen 5 Mgp licence format to require 'Mgp-' prefix + alphanumeric",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Extend the theme system so users can select four themes: White, Black, Orange, and Yellow, with the selection persisted in localStorage and applied on page load.",
+      "text": "Update the MGP validation logic so the accepted format is exactly the prefix \"Mgp-\" (capital M, then gp, then hyphen) followed by one or more letters and/or numbers (A–Z, a–z, 0–9).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-5"
         ],
         "quotes": [
-          "can you add a white theme a black theme a orange theme a yellow theme"
+          "can i get for the enter mgp licence for both the gen 4 and gen 5 make it exatly say Mgp with a capital M and - and then any numbers or letters"
         ]
       },
       "acceptanceCriteria": [
-        "Theme options include exactly: White, Black, Orange, Yellow.",
-        "Selected theme is persisted under the existing theme storage key (or a clearly documented replacement key with backward compatibility for existing 'light'/'dark' stored values).",
-        "Reloading the page preserves the previously selected theme.",
-        "No console errors occur when switching themes."
+        "In frontend/src/lib/mgp.ts, validateMgpId returns true for values like \"Mgp-1\", \"Mgp-ABC\", \"Mgp-a1B2\".",
+        "validateMgpId returns false for values like \"mgp-123\" (wrong case), \"MGP-123\" (wrong case), \"Mgp-\" (missing suffix), \"Mgp-12_3\" (underscore not allowed), and \"Mgp 123\" (missing hyphen).",
+        "getMgpErrorMessage reflects the updated rule (prefix \"Mgp-\" + letters/numbers) and no longer mentions \"mgp-\" or \"digits only\"."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update the global CSS theme variables in frontend/src/index.css to define appropriate CSS custom property sets for the White, Black, Orange, and Yellow themes so that Tailwind tokens (bg-background, text-foreground, bg-card, border-border, bg-primary, bg-accent, ring, etc.) visually change with the selected theme.",
+      "text": "Update the Gen 4 (ELC options) Mgp entry UI to refer to \"Mgp licence\" and show the required format using the exact prefix \"Mgp-\" in user-facing text (title/description/label/placeholder/error).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-5"
         ],
         "quotes": [
-          "can you add a white theme a black theme a orange theme a yellow theme"
+          "for the enter mgp licence for both the gen 4 ... make it exatly say Mgp with a capital M and -"
         ]
       },
       "acceptanceCriteria": [
-        "Each of the four themes produces a clearly distinct look by changing at least background/foreground/card/border/primary/accent/ring variables.",
-        "Black theme results in a dark UI (equivalent to current dark-mode behavior or better).",
-        "White theme results in a light UI (equivalent to current light-mode behavior or better).",
-        "Orange and Yellow themes apply orange/yellow-forward primary/accent styling while maintaining readable contrast for text and controls."
+        "In frontend/src/pages/Gen4ElcOptions.tsx, the dialog title/description/label text uses \"Mgp licence\" (English) rather than \"Mgp ID\".",
+        "The input placeholder/example shown to the user uses \"Mgp-\" (e.g., \"Mgp-ABC123\"), matching the new validation rule.",
+        "Submitting an invalid value shows the updated error message from getMgpErrorMessage."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Update the bottom ThemeToggleBar to let the user switch among the four themes (White, Black, Orange, Yellow) and ensure aria-label text accurately reflects the action and the available themes.",
+      "text": "Update the Gen 5 options Mgp entry UI to refer to \"Mgp licence\" and show the required format using the exact prefix \"Mgp-\" in user-facing text (title/description/label/placeholder/error).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-5"
         ],
         "quotes": [
-          "can you add a white theme a black theme a orange theme a yellow theme"
+          "... for both the gen 4 and gen 5 ... Mgp with a capital M and - and then any numbers or letters"
         ]
       },
       "acceptanceCriteria": [
-        "ThemeToggleBar provides a control that cycles or selects White/Black/Orange/Yellow.",
-        "The theme control’s visible label matches the currently selected theme.",
-        "aria-label(s) mention the correct theme names and no longer refer only to 'Light/Dark mode' if that is no longer the only behavior.",
-        "The existing color-scheme switcher (Blue/Purple/Green) continues to work as before."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Ensure the circular indicator in ThemeToggleBar continues to reflect the currently active theme colors by relying on existing semantic tokens (e.g., bg-primary and bg-accent) so it updates automatically for White/Black/Orange/Yellow themes as well.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages"
-        ],
-        "quotes": [
-          "can you add a white theme a black theme a orange theme a yellow theme"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Switching to each of the four themes updates the indicator colors without additional user actions.",
-        "Indicator uses semantic theme tokens (primary/accent) rather than hardcoded colors.",
-        "Indicator remains visible with sufficient contrast across all four themes."
+        "In frontend/src/pages/Gen5Options.tsx, the dialog title/description/label text uses \"Mgp licence\" (English) rather than \"Mgp ID\".",
+        "The input placeholder/example shown to the user uses \"Mgp-\" (e.g., \"Mgp-ABC123\"), matching the new validation rule.",
+        "Submitting an invalid value shows the updated error message from getMgpErrorMessage."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (Shadcn components); only compose them.",
-    "Do not modify immutable paths listed in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
-    "Keep backend as single-actor Motoko; no backend changes are required for theme selection."
+    "Do not modify any files under frontend/src/components/ui (read-only).",
+    "Keep the backend as-is (no new canisters/services; single-actor architecture unchanged)."
   ],
   "nonGoals": [
-    "Adding additional authentication methods beyond Internet Identity.",
-    "Adding backend persistence for theme preferences (localStorage-only is sufficient).",
-    "Creating new pages or routes unrelated to theme selection."
+    "Adding backend persistence or server-side verification for Mgp licences.",
+    "Changing checkout flow, pricing, or adding new product models."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

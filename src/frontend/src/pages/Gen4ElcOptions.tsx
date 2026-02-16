@@ -27,7 +27,7 @@ export default function Gen4ElcOptions() {
       return;
     }
     
-    // Valid MGP ID - navigate to checkout
+    // Valid Mgp licence - navigate to checkout
     navigate({ to: '/checkout', search: { model: 'Gen 4 Racer', from: 'gen4-elc' } });
     handleCloseMgpDialog();
   };
@@ -148,7 +148,7 @@ export default function Gen4ElcOptions() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>• Racing optimized</li>
                 <li>• Maximum speed</li>
-                <li>• Requires Mgp ID</li>
+                <li>• Requires Mgp licence</li>
               </ul>
             </CardContent>
             <CardFooter>
@@ -159,7 +159,7 @@ export default function Gen4ElcOptions() {
                 onClick={() => setShowMgpDialog(true)}
               >
                 <IdCard className="w-4 h-4 mr-2" />
-                Show valid Mgp Id
+                Show valid Mgp licence
               </Button>
             </CardFooter>
           </Card>
@@ -184,21 +184,21 @@ export default function Gen4ElcOptions() {
         </div>
       </footer>
 
-      {/* Mgp ID Dialog */}
+      {/* Mgp licence Dialog */}
       <Dialog open={showMgpDialog} onOpenChange={handleCloseMgpDialog}>
         <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
-            <DialogTitle>Enter Mgp ID</DialogTitle>
+            <DialogTitle>Enter Mgp licence</DialogTitle>
             <DialogDescription>
-              Enter your Mgp ID to proceed to checkout for Gen 4 Racer.
+              Enter your Mgp licence to proceed to checkout for Gen 4 Racer.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="mgp-input">Your Mgp ID</Label>
+              <Label htmlFor="mgp-input">Your Mgp licence</Label>
               <Input
                 id="mgp-input"
-                placeholder="mgp-123"
+                placeholder="Mgp-ABC123"
                 value={mgpInput}
                 onChange={(e) => handleInputChange(e.target.value)}
                 onKeyDown={(e) => {

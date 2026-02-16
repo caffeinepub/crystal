@@ -10,36 +10,42 @@ export function ThemeToggleBar() {
   const toggleTheme = () => {
     if (theme === 'white') {
       setTheme('black');
-    } else if (theme === 'black') {
-      setTheme('orange');
-    } else if (theme === 'orange') {
-      setTheme('yellow');
     } else {
       setTheme('white');
     }
   };
 
   const toggleColorScheme = () => {
-    if (colorScheme === 'blue') {
-      setColorScheme('purple');
-    } else if (colorScheme === 'purple') {
-      setColorScheme('green');
-    } else {
+    if (colorScheme === 'purple') {
       setColorScheme('blue');
+    } else if (colorScheme === 'blue') {
+      setColorScheme('green');
+    } else if (colorScheme === 'green') {
+      setColorScheme('orange');
+    } else if (colorScheme === 'orange') {
+      setColorScheme('yellow');
+    } else if (colorScheme === 'yellow') {
+      setColorScheme('red');
+    } else if (colorScheme === 'red') {
+      setColorScheme('white');
+    } else {
+      setColorScheme('purple');
     }
   };
 
   const getThemeLabel = () => {
     if (theme === 'white') return 'White';
-    if (theme === 'black') return 'Black';
-    if (theme === 'orange') return 'Orange';
-    return 'Yellow';
+    return 'Black';
   };
 
   const getColorSchemeLabel = () => {
-    if (colorScheme === 'blue') return 'Blue';
     if (colorScheme === 'purple') return 'Purple';
-    return 'Green';
+    if (colorScheme === 'blue') return 'Blue';
+    if (colorScheme === 'green') return 'Green';
+    if (colorScheme === 'orange') return 'Orange';
+    if (colorScheme === 'yellow') return 'Yellow';
+    if (colorScheme === 'red') return 'Red';
+    return 'White';
   };
 
   return (
@@ -50,7 +56,7 @@ export function ThemeToggleBar() {
           size="sm"
           onClick={toggleTheme}
           className="flex items-center gap-2 hover:bg-accent/50"
-          aria-label={`Switch theme. Current: ${getThemeLabel()}. Click to cycle through White, Black, Orange, and Yellow themes.`}
+          aria-label={`Switch theme. Current: ${getThemeLabel()}. Click to cycle through White and Black themes.`}
         >
           <Palette className="h-4 w-4" />
           <span className="text-sm font-medium">{getThemeLabel()}</span>
@@ -64,7 +70,7 @@ export function ThemeToggleBar() {
             size="sm"
             onClick={toggleColorScheme}
             className="flex items-center gap-2 hover:bg-accent/50"
-            aria-label="Switch between Blue, Purple, and Green color schemes"
+            aria-label="Switch between Purple, Blue, Green, Orange, Yellow, Red, and White color schemes"
           >
             <span className="text-sm font-medium text-foreground">
               {getColorSchemeLabel()}

@@ -1,13 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add four selectable UI themes (White, Black, Orange, Yellow) that persist across reloads and update the app’s semantic theme styling.
+**Goal:** Update Gen 4 and Gen 5 Mgp licence validation and UI text to require the exact `Mgp-` prefix followed by alphanumeric characters.
 
 **Planned changes:**
-- Extend the existing theme selection logic to support exactly four themes: White, Black, Orange, Yellow; persist selection in localStorage and apply it on page load (with backward compatibility for any existing stored light/dark values).
-- Update `frontend/src/index.css` global CSS custom properties to define distinct variable sets for each theme (background/foreground/card/border/primary/accent/ring, etc.) so Tailwind semantic tokens visually change per theme.
-- Update the bottom `ThemeToggleBar` to switch among the four themes, show the currently selected theme label, and refresh aria-labels to reference the correct theme names (not just Light/Dark).
-- Ensure the `ThemeToggleBar` circular indicator continues to reflect the active theme by using semantic tokens (e.g., `bg-primary`, `bg-accent`) so it updates automatically and remains visible across all themes.
-- Keep the existing Blue/Purple/Green color-scheme switcher behavior unchanged.
+- Update `frontend/src/lib/mgp.ts` validation to accept only `Mgp-` + one or more letters/numbers, and update the corresponding error message text.
+- Update `frontend/src/pages/Gen4ElcOptions.tsx` to use “Mgp licence” wording and show `Mgp-` format in title/description/label/placeholder/error.
+- Update `frontend/src/pages/Gen5Options.tsx` to use “Mgp licence” wording and show `Mgp-` format in title/description/label/placeholder/error.
 
-**User-visible outcome:** Users can switch between White, Black, Orange, and Yellow themes via the ThemeToggleBar; the choice persists after refresh and the UI colors (including the indicator) update consistently without console errors.
+**User-visible outcome:** Users entering an Mgp licence in Gen 4 or Gen 5 will be prompted to use the `Mgp-` prefix and can enter a licence containing letters and/or numbers; invalid formats are rejected with an updated, accurate error message.

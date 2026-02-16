@@ -27,7 +27,7 @@ export default function Gen5Options() {
       return;
     }
     
-    // Valid MGP ID - navigate to checkout
+    // Valid Mgp licence - navigate to checkout
     navigate({ to: '/checkout', search: { model: 'Gen 5 Racer', from: 'gen5' } });
     handleClosePreOrderDialog();
   };
@@ -148,7 +148,7 @@ export default function Gen5Options() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>• Ultimate performance</li>
                 <li>• Track-ready</li>
-                <li>• Requires Mgp ID</li>
+                <li>• Requires Mgp licence</li>
               </ul>
             </CardContent>
             <CardFooter>
@@ -184,21 +184,21 @@ export default function Gen5Options() {
         </div>
       </footer>
 
-      {/* Mgp ID Dialog */}
+      {/* Mgp licence Dialog */}
       <Dialog open={showPreOrderDialog} onOpenChange={handleClosePreOrderDialog}>
         <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50">
           <DialogHeader>
-            <DialogTitle>Enter Mgp ID</DialogTitle>
+            <DialogTitle>Enter Mgp licence</DialogTitle>
             <DialogDescription>
-              Enter your Mgp ID to proceed to checkout for Gen 5 Racer.
+              Enter your Mgp licence to proceed to checkout for Gen 5 Racer.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="mgp-input">Your Mgp ID</Label>
+              <Label htmlFor="mgp-input">Your Mgp licence</Label>
               <Input
                 id="mgp-input"
-                placeholder="mgp-123"
+                placeholder="Mgp-ABC123"
                 value={mgpInput}
                 onChange={(e) => handleInputChange(e.target.value)}
                 onKeyDown={(e) => {

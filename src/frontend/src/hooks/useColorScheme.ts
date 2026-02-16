@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 
 const COLOR_SCHEME_STORAGE_KEY = 'color-scheme';
 
-type ColorScheme = 'blue' | 'purple' | 'green';
+type ColorScheme = 'purple' | 'blue' | 'green' | 'orange' | 'yellow' | 'red' | 'white';
 
 function getInitialColorScheme(): ColorScheme {
   if (typeof window === 'undefined') return 'purple';
   
   const stored = localStorage.getItem(COLOR_SCHEME_STORAGE_KEY);
-  if (stored === 'blue' || stored === 'purple' || stored === 'green') {
+  if (stored === 'purple' || stored === 'blue' || stored === 'green' || 
+      stored === 'orange' || stored === 'yellow' || stored === 'red' || stored === 'white') {
     return stored;
   }
   

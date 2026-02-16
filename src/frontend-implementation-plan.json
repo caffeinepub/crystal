@@ -1,72 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add White/Black/Orange/Yellow UI themes with persistence and toggle UI",
+  "title": "Update Gen 4/5 Mgp licence format and UI text",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Extend theme state to support exactly White/Black/Orange/Yellow with localStorage persistence and apply on load (including backward compatibility for existing light/dark values).",
+      "summary": "Update Mgp validation to require exact \"Mgp-\" prefix followed by alphanumeric characters and align error messaging.",
       "acceptanceCriteria": [
-        "Theme options include exactly: White, Black, Orange, Yellow.",
-        "Selected theme is persisted under the existing theme storage key (or a clearly documented replacement key with backward compatibility for existing 'light'/'dark' stored values).",
-        "Reloading the page preserves the previously selected theme.",
-        "No console errors occur when switching themes."
+        "In frontend/src/lib/mgp.ts, validateMgpId returns true for values like \"Mgp-1\", \"Mgp-ABC\", \"Mgp-a1B2\".",
+        "validateMgpId returns false for values like \"mgp-123\" (wrong case), \"MGP-123\" (wrong case), \"Mgp-\" (missing suffix), \"Mgp-12_3\" (underscore not allowed), and \"Mgp 123\" (missing hyphen).",
+        "getMgpErrorMessage reflects the updated rule (prefix \"Mgp-\" + letters/numbers) and no longer mentions \"mgp-\" or \"digits only\"."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useTheme.ts",
+          "path": "frontend/src/lib/mgp.ts",
           "operation": "modify",
-          "description": "Update the theme hook to use a 4-theme model (white/black/orange/yellow), migrate existing stored values ('light'->'white', 'dark'->'black') while continuing to read/write the existing storage key, and apply the selected theme on load by setting a document-level attribute (e.g., data-theme) and maintaining the 'dark' class for the Black theme for compatibility with existing dark-mode styling."
+          "description": "Update validateMgpId to enforce the exact required format: prefix \"Mgp-\" followed by one or more alphanumeric characters only, and update getMgpErrorMessage strings to say \"Mgp licence\" and describe the new rule (\"Mgp-\" + letters/numbers)."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Define CSS custom property sets for White/Black/Orange/Yellow themes so semantic Tailwind tokens (background/foreground/card/border/primary/accent/ring/etc.) change with the selected theme.",
+      "summary": "Update Gen 4 ELC options Mgp entry dialog copy to say \"Mgp licence\" and display the exact required \"Mgp-\" format in all user-facing text.",
       "acceptanceCriteria": [
-        "Each of the four themes produces a clearly distinct look by changing at least background/foreground/card/border/primary/accent/ring variables.",
-        "Black theme results in a dark UI (equivalent to current dark-mode behavior or better).",
-        "White theme results in a light UI (equivalent to current light-mode behavior or better).",
-        "Orange and Yellow themes apply orange/yellow-forward primary/accent styling while maintaining readable contrast for text and controls."
+        "In frontend/src/pages/Gen4ElcOptions.tsx, the dialog title/description/label text uses \"Mgp licence\" (English) rather than \"Mgp ID\".",
+        "The input placeholder/example shown to the user uses \"Mgp-\" (e.g., \"Mgp-ABC123\"), matching the new validation rule.",
+        "Submitting an invalid value shows the updated error message from getMgpErrorMessage."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/pages/Gen4ElcOptions.tsx",
           "operation": "modify",
-          "description": "Extend the base theme variable definitions to include four explicit theme variable sets keyed off the document theme selector (e.g., :root[data-theme=\"white\"], :root[data-theme=\"black\"], :root[data-theme=\"orange\"], :root[data-theme=\"yellow\"]). Ensure each set updates at least --background/--foreground/--card/--border/--primary/--accent/--ring (and related foreground vars) to create distinct White/Black/Orange/Yellow looks, while keeping the existing Blue/Purple/Green data-color-scheme overrides functioning."
+          "description": "Revise Gen 4 Racer Mgp dialog and related UI copy to use \"Mgp licence\" (title/description/label/helper text/button text where applicable) and update placeholder/example to \"Mgp-ABC123\". Ensure invalid submissions continue to use getMgpErrorMessage for the displayed error. Use the existing shadcn/ui Dialog, Input, Label, and Button components already in this file to present the entry UI; verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Update ThemeToggleBar to switch among White/Black/Orange/Yellow with accurate labels and aria-labels while keeping the existing Blue/Purple/Green color-scheme control.",
+      "summary": "Update Gen 5 options Mgp entry dialog copy to say \"Mgp licence\" and display the exact required \"Mgp-\" format in all user-facing text.",
       "acceptanceCriteria": [
-        "ThemeToggleBar provides a control that cycles or selects White/Black/Orange/Yellow.",
-        "The theme control’s visible label matches the currently selected theme.",
-        "aria-label(s) mention the correct theme names and no longer refer only to 'Light/Dark mode' if that is no longer the only behavior.",
-        "The existing color-scheme switcher (Blue/Purple/Green) continues to work as before."
+        "In frontend/src/pages/Gen5Options.tsx, the dialog title/description/label text uses \"Mgp licence\" (English) rather than \"Mgp ID\".",
+        "The input placeholder/example shown to the user uses \"Mgp-\" (e.g., \"Mgp-ABC123\"), matching the new validation rule.",
+        "Submitting an invalid value shows the updated error message from getMgpErrorMessage."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ThemeToggleBar.tsx",
+          "path": "frontend/src/pages/Gen5Options.tsx",
           "operation": "modify",
-          "description": "Replace the current light/dark toggle behavior with a 4-theme cycle/select control (White, Black, Orange, Yellow), update the visible label to match the active theme, and update aria-label text to reference the correct theme names and available options; keep the existing Blue/Purple/Green color-scheme toggle unchanged."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Ensure the ThemeToggleBar circular indicator automatically reflects the active theme using semantic tokens and remains visible across all themes.",
-      "acceptanceCriteria": [
-        "Switching to each of the four themes updates the indicator colors without additional user actions.",
-        "Indicator uses semantic theme tokens (primary/accent) rather than hardcoded colors.",
-        "Indicator remains visible with sufficient contrast across all four themes."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/ThemeToggleBar.tsx",
-          "operation": "modify",
-          "description": "Adjust the indicator styling (if needed) to rely strictly on semantic token classes (e.g., bg-primary, bg-accent, border-border, ring-ring, ring-offset-background) so it stays legible and updates automatically for White/Black/Orange/Yellow without introducing hardcoded colors."
+          "description": "Revise Gen 5 Racer pre-order Mgp dialog and related UI copy to use \"Mgp licence\" (title/description/label/helper text) and update placeholder/example to \"Mgp-ABC123\". Ensure invalid submissions continue to use getMgpErrorMessage for the displayed error. Use the existing shadcn/ui Dialog, Input, Label, and Button components already in this file to present the entry UI; verify the component's usage instructions before implementing."
         }
       ]
     }
