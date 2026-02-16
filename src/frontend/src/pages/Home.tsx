@@ -60,6 +60,10 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
+        
+        <div className="text-center mt-8">
+          <p className="text-sm text-white">© Made by Benny Yt</p>
+        </div>
       </main>
 
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">

@@ -5,13 +5,15 @@ import Gen5Options from './pages/Gen5Options';
 import Checkout from './pages/Checkout';
 import OrderConfirmation from './pages/OrderConfirmation';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeToggleBar } from './components/ThemeToggleBar';
 
 const rootRoute = createRootRoute({
   component: () => (
     <>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background pb-20">
         <Outlet />
       </div>
+      <ThemeToggleBar />
       <Toaster />
     </>
   ),

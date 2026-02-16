@@ -1,219 +1,32 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
-  "summary": "Update the \"Crystal\" app to use a black + blue liquid-glass visual theme, rename the home screen tile from \"Gen 4 Elc\" to \"Gen 4\", add model descriptions/ranges to the Gen 4 options (Base 0-90, Pro 0-120, Racer 0-360), implement a mock checkout + order confirmation flow when clicking \"Buy\", and add a new \"Gen 5\" item on the home menu with a Gen 5 options page mirroring Gen 4 structure (Base/Pro/Racer) with new MPH descriptions. Update Gen 5 so ALL three options use a \"Pre Order\" label/action, update Mgp ID handling so it must match the pattern \"mgp-\" + digits only (any numeric sequence), and change the Mgp ID submit/confirm flow so that after entering an Mgp ID it navigates to the checkout flow. Add/attach pricing to options: Gen 4 = $500, Gen 4 Pro = $1000, Gen 4 Racer = $2000; Gen 5 = $1000, Gen 5 Pro = $2500, Gen 5 Racer = $5000. Keep diamond character icons (♦) for Gen 4/Gen 5 items/options and adjust their styling to gray + purple.",
-  "architectural_notes": [
-    "Mgp ID input should validate against a simple pattern: /^mgp-\\d+$/ (case-sensitive unless otherwise specified).",
-    "After successful Mgp ID submission, route user into the existing checkout flow (carry selected model context as needed)."
-  ],
+  "projectStateVersion": 3,
+  "summary": "UI update request: remove the cat element while keeping the circle; make the circle reflect the selected theme color; add green as an option in the color changer.",
+  "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-create-a-home-screen-that-displays-a-top-header-reading-crystal-and-below-it-shows-two-selectable-tiles-cards-placeholders-for-two-items-one-tile-must-be-labeled-gen-4-elc-and-show-the-subtitle-click-to-see-options",
-      "title": "Create a home screen that displays a top header reading \"Crystal\" and, below it, shows two selectable tiles/cards (placeholders for two items). One tile must be labeled \"Gen 4 Elc\" and show the subtitle \"Click to see options\".",
+      "id": "feature-update-the-bottom-themetogglebar-to-remove-the-cat-image-while-keeping-a-circular-indicator-next-to-the-color-scheme-toggle",
+      "title": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-navigation-so-that-selecting-clicking-the-gen-4-elc-tile-on-the-home-screen-routes-the-user-to-a-dedicated-gen-4-elc-options-page",
-      "title": "Implement navigation so that selecting/clicking the \"Gen 4 Elc\" tile on the home screen routes the user to a dedicated \"Gen 4 Elc\" options page.",
+      "id": "feature-make-the-circular-indicator-in-themetogglebar-automatically-reflect-the-currently-selected-color-scheme-theme-colors-so-that-switching-color-scheme-updates-the-circle-color",
+      "title": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-on-the-gen-4-elc-options-page-display-three-options-in-a-clear-list-grid-1-gen-4-2-gen-4-pro-3-gen-4-racer-under-options-1-and-2-render-a-buy-action-under-option-3-render-a-show-valid-mgp-id-action",
-      "title": "On the \"Gen 4 Elc\" options page, display three options in a clear list/grid: (1) \"Gen 4\", (2) \"Gen 4 Pro\", (3) \"Gen 4 Racer\". Under options 1 and 2, render a \"Buy\" action. Under option 3, render a \"Show valid Mgp Id\" action.",
+      "id": "feature-extend-the-color-scheme-switcher-to-include-a-green-option-update-color-scheme-state-management-persistence-ui-label-s-aria-label-s-and-add-corresponding-css-variable-overrides-for-green-in-both-light-and-dark-modes",
+      "title": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
       "reqIds": [
         "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-define-basic-behavior-for-the-three-actions-clicking-buy-for-gen-4-and-gen-4-pro-must-show-an-in-app-confirmation-feedback-state-e-g-modal-toast-or-inline-message-indicating-the-item-was-selected-for-purchase-no-real-payment-clicking-show-valid-mgp-id-must-display-a-small-in-app-panel-modal-that-shows-a-set-of-example-valid-mgp-ids-and-provides-an-input-field-to-check-whether-an-entered-id-is-valid-against-that-example-list",
-      "title": "Define basic behavior for the three actions: clicking \"Buy\" (for \"Gen 4\" and \"Gen 4 Pro\") must show an in-app confirmation/feedback state (e.g., modal, toast, or inline message) indicating the item was selected for purchase (no real payment). Clicking \"Show valid Mgp Id\" must display a small in-app panel/modal that shows a set of example valid Mgp IDs and provides an input field to check whether an entered ID is valid against that example list.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-consistent-creative-visual-theme-across-the-app-colors-typography-spacing-component-styling-suitable-for-a-product-options-selection-interface-avoiding-a-blue-purple-primary-palette",
-      "title": "Apply a consistent, creative visual theme across the app (colors, typography, spacing, component styling) suitable for a product/options selection interface, avoiding a blue+purple primary palette.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-home-screen-primary-tile-label-text-from-gen-4-elc-to-gen-4-while-keeping-the-existing-subtitle-click-to-see-options-and-keeping-the-existing-navigation-target-behavior-click-still-routes-to-the-existing-gen-4-options-page-route",
-      "title": "Update the Home screen primary tile label text from \"Gen 4 Elc\" to \"Gen 4\" while keeping the existing subtitle \"Click to see options\" and keeping the existing navigation target/behavior (click still routes to the existing Gen 4 options page route).",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-gen-4-options-page-model-descriptions-to-exactly-match-the-following-user-provided-text-gen-4-base-model-0-90-gen-4-pro-pro-model-0-120-gen-4-racer-racer-model-0-360",
-      "title": "Update the Gen 4 options page model descriptions to exactly match the following user-provided text: Gen 4 = \"Base model 0-90\"; Gen 4 Pro = \"Pro model 0-120\"; Gen 4 Racer = \"Racer model 0-360\".",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-keep-mgp-id-verification-required-for-the-gen-4-racer-flow-gen-4-racer-must-continue-to-use-the-show-valid-mgp-id-action-that-opens-the-mgp-id-dialog-with-the-input-and-validation-feedback-valid-invalid-and-it-must-not-add-a-buy-action-for-gen-4-racer",
-      "title": "Keep Mgp ID verification required for the Gen 4 Racer flow: Gen 4 Racer must continue to use the \"Show valid Mgp Id\" action that opens the Mgp ID dialog with the input and validation feedback (valid/invalid), and it must not add a \"Buy\" action for Gen 4 Racer.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-current-warm-palette-styling-with-a-cohesive-black-blue-liquid-glass-theme-across-the-app-home-options-page-and-dialog-including-dark-near-black-backgrounds-blue-highlights-accents-glassmorphism-surfaces-semi-transparent-cards-with-subtle-borders-backdrop-blur-where-supported-and-consistent-typography-spacing-update-the-tailwind-css-theme-tokens-so-that-components-using-design-tokens-bg-background-bg-card-border-border-text-foreground-primary-accent-automatically-match-the-new-theme",
-      "title": "Replace the current warm palette styling with a cohesive black + blue \"liquid glass\" theme across the app (Home, options page, and dialog), including: dark/near-black backgrounds, blue highlights/accents, glassmorphism surfaces (semi-transparent cards with subtle borders, backdrop blur where supported), and consistent typography/spacing. Update the Tailwind/CSS theme tokens so that components using design tokens (bg-background, bg-card, border-border, text-foreground, primary/accent) automatically match the new theme.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-gen-4-options-page-so-that-clicking-the-buy-button-for-gen-4-or-gen-4-pro-navigates-to-a-new-mock-checkout-page-instead-of-only-showing-a-toast-carrying-along-which-model-the-user-selected",
-      "title": "Update the Gen 4 options page so that clicking the \"Buy\" button for \"Gen 4\" or \"Gen 4 Pro\" navigates to a new mock checkout page (instead of only showing a toast), carrying along which model the user selected.",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-new-mock-checkout-page-that-displays-form-fields-for-address-and-payment-details-at-minimum-address-credit-card-number-zip-code-and-a-primary-button-labeled-done-the-user-must-not-be-required-to-enter-valid-values-the-done-button-must-be-usable-even-with-empty-fields",
-      "title": "Create a new mock checkout page that displays form fields for address and payment details (at minimum: Address, Credit card number, ZIP code) and a primary button labeled \"Done\". The user must not be required to enter valid values; the \"Done\" button must be usable even with empty fields.",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-after-the-user-clicks-done-on-the-mock-checkout-page-navigate-to-a-new-order-confirmation-page-that-shows-order-placed-and-displays-an-arrival-date-randomly-chosen-between-2-25-26-and-5-25-26-inclusive-the-arrival-date-should-be-generated-once-per-order-submission-and-remain-stable-while-viewing-that-confirmation-screen",
-      "title": "After the user clicks \"Done\" on the mock checkout page, navigate to a new order confirmation page that shows \"Order placed\" and displays an arrival date randomly chosen between 2/25/26 and 5/25/26 (inclusive). The arrival date should be generated once per order submission and remain stable while viewing that confirmation screen.",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-the-necessary-tanstack-router-routes-for-the-new-checkout-page-and-order-confirmation-page-ensuring-existing-routes-and-gen4-elc-continue-to-work-as-is",
-      "title": "Add the necessary TanStack Router routes for the new checkout page and order confirmation page, ensuring existing routes ('/' and '/gen4-elc') continue to work as-is.",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-home-page-to-add-a-new-selectable-tile-labeled-gen-5-in-addition-to-the-existing-gen-4-tile-that-routes-the-user-to-a-new-gen-5-options-page",
-      "title": "Update the Home page to add a new selectable tile labeled \"Gen 5\" (in addition to the existing \"Gen 4\" tile) that routes the user to a new Gen 5 options page.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-new-tanstack-router-route-for-the-gen-5-options-page-and-wire-it-into-the-app-router-without-changing-existing-routes",
-      "title": "Add a new TanStack Router route for the Gen 5 options page and wire it into the app router without changing existing routes.",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-new-gen-5-options-page-that-mirrors-the-gen-4-options-page-layout-3-options-in-a-clear-grid-list-with-the-following-exact-user-facing-option-titles-and-descriptions-1-gen-5-with-description-base-model-0-120-mph-2-gen-5-pro-with-description-0-200-mph-3-gen-5-racer-with-description-0-300-mph-and-it-must-communicate-that-an-mgp-id-is-required",
-      "title": "Create a new Gen 5 options page that mirrors the Gen 4 options page layout (3 options in a clear grid/list), with the following exact user-facing option titles and descriptions: (1) \"Gen 5\" with description \"Base Model 0-120 Mph\"; (2) \"Gen 5 Pro\" with description \"0-200 Mph\"; (3) \"Gen 5 Racer\" with description \"0-300 Mph\" and it must communicate that an Mgp ID is required.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-gen-5-option-actions-to-match-gen-4-behavior-for-purchase-flow-gen-5-and-gen-5-pro-must-have-a-buy-action-that-navigates-to-the-existing-mock-checkout-page-and-passes-the-selected-model-via-router-search-params-gen-5-racer-must-not-have-a-buy-action-and-instead-must-have-a-primary-action-labeled-pre-order-that-requires-mgp-id-entry-validation-before-showing-a-success-confirmation-state",
-      "title": "Implement Gen 5 option actions to match Gen 4 behavior for purchase flow: \"Gen 5\" and \"Gen 5 Pro\" must have a \"Buy\" action that navigates to the existing mock checkout page and passes the selected model via router search params; \"Gen 5 Racer\" must not have a \"Buy\" action and instead must have a primary action labeled \"Pre Order\" that requires Mgp ID entry/validation before showing a success/confirmation state.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-diamond-icon-for-all-gen-4-and-gen-5-items-options-update-the-home-tiles-and-both-options-pages-gen-4-options-and-new-gen-5-options-to-display-a-diamond-icon-in-each-tile-card-or-option-card-using-a-shared-generated-static-image-asset",
-      "title": "Add a diamond icon for all Gen 4 and Gen 5 items/options: update the Home tiles and both options pages (Gen 4 options and new Gen 5 options) to display a diamond icon in each tile/card or option card, using a shared generated static image asset.",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-replace-the-current-diamond-icon-image-used-on-the-home-page-gen-4-options-page-and-gen-5-options-page-with-the-diamond-character-no-image-keeping-sizing-alignment-visually-consistent-with-the-existing-layout",
-      "title": "Replace the current diamond icon image used on the Home page, Gen 4 options page, and Gen 5 options page with the diamond character \"♦\" (no image), keeping sizing/alignment visually consistent with the existing layout.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-gen-4-options-page-descriptions-to-keep-the-existing-wording-but-append-mph-to-each-description",
-      "title": "Update the Gen 4 options page descriptions to keep the existing wording but append \" Mph\" to each description.",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-gen-5-options-page-so-that-all-three-gen-5-models-gen-5-gen-5-pro-gen-5-racer-display-a-primary-action-labeled-pre-order-replace-any-buy-label-for-gen-5-and-gen-5-pro-keep-the-existing-click-behaviors-gen-5-gen-5-pro-continue-to-navigate-to-the-existing-checkout-flow-gen-5-racer-continues-to-open-the-pre-order-dialog",
-      "title": "Update the Gen 5 options page so that all three Gen 5 models (Gen 5, Gen 5 Pro, Gen 5 Racer) display a primary action labeled \"Pre Order\" (replace any \"Buy\" label for Gen 5 and Gen 5 Pro). Keep the existing click behaviors (Gen 5 / Gen 5 Pro continue to navigate to the existing /checkout flow; Gen 5 Racer continues to open the pre-order dialog).",
-      "reqIds": [
-        "REQ-21"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-mgp-id-handling-to-accept-whatever-the-user-types-no-validation-against-a-predefined-list-anywhere-an-mgp-id-is-entered-in-the-ui-including-gen-4-racer-and-gen-5-racer-dialogs-remove-example-valid-id-lists-and-remove-any-invalid-state-submitting-confirming-should-always-succeed-and-show-a-success-accepted-state-using-the-entered-value",
-      "title": "Change Mgp ID handling to accept whatever the user types (no validation against a predefined list) anywhere an Mgp ID is entered in the UI (including Gen 4 Racer and Gen 5 Racer dialogs). Remove example valid ID lists and remove any \"Invalid\" state; submitting/confirming should always succeed and show a success/accepted state using the entered value.",
-      "reqIds": [
-        "REQ-22"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-and-display-pricing-for-each-model-on-the-gen-4-options-page-and-the-gen-5-options-page-using-the-following-exact-prices-gen-4-500-gen-4-pro-1000-gen-4-racer-2000-gen-5-1000-gen-5-pro-2500-gen-5-racer-5000-prices-must-be-visible-on-each-option-card-in-a-clear-consistent-location",
-      "title": "Add and display pricing for each model on the Gen 4 options page and the Gen 5 options page, using the following exact prices: Gen 4 = $500; Gen 4 Pro = $1000; Gen 4 Racer = $2000; Gen 5 = $1000; Gen 5 Pro = $2500; Gen 5 Racer = $5000. Prices must be visible on each option card in a clear, consistent location.",
-      "reqIds": [
-        "REQ-23"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-app-s-visual-theme-to-a-cohesive-gray-purple-palette-replacing-the-current-black-blue-liquid-glass-palette-by-adjusting-the-tailwind-css-design-tokens-so-that-surfaces-borders-text-and-primary-accent-colors-render-as-gray-forward-with-purple-highlights-across-home-options-pages-dialogs-checkout-and-order-confirmation",
-      "title": "Update the app’s visual theme to a cohesive gray + purple palette (replacing the current black/blue liquid-glass palette) by adjusting the Tailwind/CSS design tokens so that surfaces, borders, text, and primary/accent colors render as gray-forward with purple highlights across Home, options pages, dialogs, checkout, and order confirmation.",
-      "reqIds": [
-        "REQ-24"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-enforce-mgp-id-format-validation-everywhere-the-user-enters-an-mgp-id-gen-4-racer-dialog-and-gen-5-racer-dialog-the-value-must-start-with-the-literal-prefix-mgp-and-be-followed-by-digits-only-any-length-any-numeric-sequence",
-      "title": "Enforce MGP ID format validation everywhere the user enters an MGP ID (Gen 4 Racer dialog and Gen 5 Racer dialog): the value must start with the literal prefix \"mgp-\" and be followed by digits only (any length, any numeric sequence).",
-      "reqIds": [
-        "REQ-25"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-change-the-mgp-id-confirm-flow-so-that-after-the-user-enters-a-valid-mgp-id-and-confirms-the-app-navigates-directly-to-the-existing-checkout-page-checkout-instead-of-showing-a-success-accepted-panel-pass-the-selected-model-in-router-search-params-so-the-checkout-header-shows-the-correct-model",
-      "title": "Change the MGP ID confirm flow so that after the user enters a valid MGP ID and confirms, the app navigates directly to the existing checkout page (/checkout) instead of showing a success/accepted panel; pass the selected model in router search params so the checkout header shows the correct model.",
-      "reqIds": [
-        "REQ-26"
       ],
       "version": 1
     }
@@ -221,103 +34,24 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create \"Crystal\" home screen with title at top and a Gen 4 Elc card showing \"click to see options\" that navigates to the Gen 4 options page.",
+      "summary": "Remove the cat element from the UI while keeping the circle.",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Implement Gen 4 options page listing: Gen 4, Gen 4 Pro (each with a \"Buy\" action) and Gen 4 Racer (with a \"Show valid Mgp Id\" action/requirement).",
+      "summary": "Make the circle change to match the selected theme color.",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Apply a black + blue \"liquid glass\" visual theme across the app (including the home screen), replacing the prior non-blue palette constraint.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Rename the home screen tile label from \"Gen 4 Elc\" to \"Gen 4\" (keep navigation behavior to the options page).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Add/update Gen 4 options descriptions: Gen 4 = \"Base model 0-90\", Gen 4 Pro = \"Pro model 0-120\", Gen 4 Racer = \"Racer model 0-360\"; keep Mgp ID verification required for Racer.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "When clicking \"Buy\" (Gen 4 / Gen 4 Pro), navigate to a mock checkout page collecting address + credit card fields (no required validation/entry) with a \"Done\" button, then show an \"Order placed\" screen with a randomly generated arrival date between 2/25/26 and 5/25/26.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Add a new \"Gen 5\" tile/item on the home screen menu that navigates to a dedicated Gen 5 options page (parallel to Gen 4).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Create a Gen 5 options page with three options mirroring Gen 4: (1) Gen 5 = \"Base Model 0-120 Mph\", (2) Gen 5 Pro = \"0-200 Mph\", (3) Gen 5 Racer = \"0-300 Mph\"; Gen 5 Racer must require Mgp ID and show a \"Pre Order\" action/label instead of \"Buy\".",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Add diamond icons for all relevant items/options (Gen 4 and Gen 5).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Change the diamond icons currently used for Gen 4/Gen 5 to use the ♦ diamond character instead of the existing diamond image asset.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Update Gen 4 option descriptions to keep the same text but append \"Mph\" to each (Gen 4, Gen 4 Pro, Gen 4 Racer).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Update Gen 5 options so all three (Gen 5 / Gen 5 Pro / Gen 5 Racer) display and use a \"Pre Order\" label/action (not just Racer).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Add pricing for each model on the options pages: Gen 4 $500, Gen 4 Pro $1000, Gen 4 Racer $2000; Gen 5 $1000, Gen 5 Pro $2500, Gen 5 Racer $5000 (display prices alongside each option).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Update ♦ icon styling to be gray and purple (adjust the icon color/style across the app where ♦ is used).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-16",
-      "summary": "Change Mgp ID flow so that after the user enters/submits an Mgp ID (e.g., in the Gen 4 Racer / Gen 5 Racer dialogs), the app navigates to the checkout flow instead of only showing an accepted/success state.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Add Mgp ID format validation: entered ID must start with \"mgp-\" and be followed by digits only (any numeric sequence).",
+      "summary": "Add green as an option in the color changer.",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Crystal",
+  "projectName": "Remove cat icon, add theme-colored circle indicator, and add green to color scheme switcher",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

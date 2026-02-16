@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T05:55:05.473Z",
+  "generatedAt": "2026-02-16T06:52:20.659Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,48 +11,40 @@
     "implemented": 3,
     "items": [
       {
-        "id": "REQ-24",
-        "summary": "Update the app’s visual theme to a cohesive gray + purple palette (replacing the current black/blue liquid-glass palette) by adjusting the Tailwind/CSS design tokens so that surfaces, borders, text, and primary/accent colors render as gray-forward with purple highlights across Home, options pages, dialogs, checkout, and order confirmation.",
+        "id": "REQ-1",
+        "summary": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/pages/OrderConfirmation.tsx"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/tailwind.config.js",
-          "frontend/src/pages/OrderConfirmation.tsx"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ]
       },
       {
-        "id": "REQ-25",
-        "summary": "Enforce MGP ID format validation everywhere the user enters an MGP ID (Gen 4 Racer dialog and Gen 5 Racer dialog): the value must start with the literal prefix \"mgp-\" and be followed by digits only (any length, any numeric sequence).",
+        "id": "REQ-2",
+        "summary": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/lib/mgp.ts",
-          "frontend/src/pages/Gen4ElcOptions.tsx",
-          "frontend/src/pages/Gen5Options.tsx"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/lib/mgp.ts",
-          "frontend/src/pages/Gen4ElcOptions.tsx",
-          "frontend/src/pages/Gen5Options.tsx"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ]
       },
       {
-        "id": "REQ-26",
-        "summary": "Change the MGP ID confirm flow so that after the user enters a valid MGP ID and confirms, the app navigates directly to the existing checkout page (/checkout) instead of showing a success/accepted panel; pass the selected model in router search params so the checkout header shows the correct model.",
+        "id": "REQ-3",
+        "summary": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Gen4ElcOptions.tsx",
-          "frontend/src/pages/Gen5Options.tsx",
-          "frontend/src/pages/Checkout.tsx"
+          "frontend/src/hooks/useColorScheme.ts",
+          "frontend/src/components/ThemeToggleBar.tsx",
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Gen4ElcOptions.tsx",
-          "frontend/src/pages/Gen5Options.tsx"
+          "frontend/src/hooks/useColorScheme.ts",
+          "frontend/src/components/ThemeToggleBar.tsx",
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -62,12 +54,9 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/src/components/ThemeToggleBar.tsx",
+    "frontend/src/hooks/useColorScheme.ts",
     "frontend/src/index.css",
-    "frontend/src/lib/mgp.ts",
-    "frontend/src/pages/Gen4ElcOptions.tsx",
-    "frontend/src/pages/Gen5Options.tsx",
-    "frontend/src/pages/OrderConfirmation.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

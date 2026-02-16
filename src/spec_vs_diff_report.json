@@ -1,34 +1,25 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T05:55:05.470Z",
-  "summary": "The diff implements the gray+purple token-based theme update and updates Gen 4/Gen 5 MGP ID dialogs to validate `mgp-` + digits and navigate directly to `/checkout` with appropriate `model` and `from` search params. One unrelated placeholder hook file appears to have been added.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-16T06:52:20.657Z",
+  "summary": "REQ-1 and REQ-2 appear implemented in ThemeToggleBar (cat image removed; circular indicator uses theme CSS variables via bg-primary/bg-accent). REQ-3 is partially implemented: state management/persistence and light-mode green CSS overrides are present, but the diff does not show the required dark-mode green overrides in index.css (content is truncated before any .dark[data-color-scheme=\"green\"] block).",
+  "missing_requirements": [
     {
-      "description": "Added an empty/placeholder React Query hooks file (`useQueries.ts`) even though no new query/hooks work was requested.",
-      "reason": "BuildRequest does not mention adding React Query hooks scaffolding; scope is limited to theme + MGP ID validation + navigation flow.",
+      "id": "REQ-3",
+      "requirement": "Add corresponding CSS variable overrides for green in both light and dark modes, including a dark-mode selector (.dark[data-color-scheme=\"green\"]) covering primary/accent/ring (and other scheme-specific variables overridden for blue).",
+      "reason": "The diff shows a green override for light mode (:root[data-color-scheme=\"green\"]) but does not show any dark-mode green override block; the file is truncated while showing the dark-mode blue block, so there is no evidence that .dark[data-color-scheme=\"green\"] was added.",
       "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/hooks/useQueries.ts\": \"Placeholder file for future React Query hooks\")"
-      ]
-    },
-    {
-      "description": "Checkout behavior enhanced to include improved back navigation based on the `from` search parameter and random arrival date generation for order confirmation.",
-      "reason": "BuildRequest only requires navigating to existing `/checkout` with search params so header/back button returns correctly for Gen4/Gen5 Racer flows; it does not request broader checkout/order-confirmation behavior changes.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/pages/Checkout.tsx\": mentions improved back navigation and random arrival date generation)"
+        "frontend/src/index.css (shows :root[data-color-scheme=\"green\"] but only .dark[data-color-scheme=\"blue\"] appears before truncation)"
       ]
     }
   ],
+  "hallucinated_features": [],
   "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
+    "frontend/src/components/ThemeToggleBar.tsx",
+    "frontend/src/hooks/useColorScheme.ts",
     "frontend/src/index.css",
-    "frontend/src/lib/mgp.ts",
-    "frontend/src/pages/Gen4ElcOptions.tsx",
-    "frontend/src/pages/Gen5Options.tsx",
-    "frontend/src/pages/OrderConfirmation.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

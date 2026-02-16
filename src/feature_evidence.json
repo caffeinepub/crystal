@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-app-s-visual-theme-to-a-cohesive-gray-purple-palette-replacing-the-current-black-blue-liquid-glass-palette-by-adjusting-the-tailwind-css-design-tokens-so-that-surfaces-borders-text-and-primary-accent-colors-render-as-gray-forward-with-purple-highlights-across-home-options-pages-dialogs-checkout-and-order-confirmation",
-      "featureTitle": "Update the app’s visual theme to a cohesive gray + purple palette (replacing the current black/blue liquid-glass palette) by adjusting the Tailwind/CSS design tokens so that surfaces, borders, text, and primary/accent colors render as gray-forward with purple highlights across Home, options pages, dialogs, checkout, and order confirmation.",
+      "featureId": "feature-update-the-bottom-themetogglebar-to-remove-the-cat-image-while-keeping-a-circular-indicator-next-to-the-color-scheme-toggle",
+      "featureTitle": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
       "files": [
-        "frontend/src/index.css",
-        "frontend/src/pages/OrderConfirmation.tsx",
-        "frontend/tailwind.config.js"
+        "frontend/src/components/ThemeToggleBar.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -17,17 +15,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-24"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-enforce-mgp-id-format-validation-everywhere-the-user-enters-an-mgp-id-gen-4-racer-dialog-and-gen-5-racer-dialog-the-value-must-start-with-the-literal-prefix-mgp-and-be-followed-by-digits-only-any-length-any-numeric-sequence",
-      "featureTitle": "Enforce MGP ID format validation everywhere the user enters an MGP ID (Gen 4 Racer dialog and Gen 5 Racer dialog): the value must start with the literal prefix \"mgp-\" and be followed by digits only (any length, any numeric sequence).",
+      "featureId": "feature-make-the-circular-indicator-in-themetogglebar-automatically-reflect-the-currently-selected-color-scheme-theme-colors-so-that-switching-color-scheme-updates-the-circle-color",
+      "featureTitle": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
       "files": [
-        "frontend/src/lib/mgp.ts",
-        "frontend/src/pages/Gen4ElcOptions.tsx",
-        "frontend/src/pages/Gen5Options.tsx"
+        "frontend/src/components/ThemeToggleBar.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -37,16 +33,17 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-25"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-change-the-mgp-id-confirm-flow-so-that-after-the-user-enters-a-valid-mgp-id-and-confirms-the-app-navigates-directly-to-the-existing-checkout-page-checkout-instead-of-showing-a-success-accepted-panel-pass-the-selected-model-in-router-search-params-so-the-checkout-header-shows-the-correct-model",
-      "featureTitle": "Change the MGP ID confirm flow so that after the user enters a valid MGP ID and confirms, the app navigates directly to the existing checkout page (/checkout) instead of showing a success/accepted panel; pass the selected model in router search params so the checkout header shows the correct model.",
+      "featureId": "feature-extend-the-color-scheme-switcher-to-include-a-green-option-update-color-scheme-state-management-persistence-ui-label-s-aria-label-s-and-add-corresponding-css-variable-overrides-for-green-in-both-light-and-dark-modes",
+      "featureTitle": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
       "files": [
-        "frontend/src/pages/Gen4ElcOptions.tsx",
-        "frontend/src/pages/Gen5Options.tsx"
+        "frontend/src/components/ThemeToggleBar.tsx",
+        "frontend/src/hooks/useColorScheme.ts",
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -56,7 +53,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-3"
       ],
       "confidence": "high"
     }
