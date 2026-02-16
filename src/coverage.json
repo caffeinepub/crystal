@@ -1,29 +1,40 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-16T06:52:20.659Z",
+  "generatedAt": "2026-02-16T07:01:45.909Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
+        "summary": "Extend the theme system so users can select four themes: White, Black, Orange, and Yellow, with the selection persisted in localStorage and applied on page load.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/ThemeToggleBar.tsx"
+          "frontend/src/hooks/useTheme.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/ThemeToggleBar.tsx"
+          "frontend/src/hooks/useTheme.ts"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
+        "summary": "Update the global CSS theme variables in frontend/src/index.css to define appropriate CSS custom property sets for the White, Black, Orange, and Yellow themes so that Tailwind tokens (bg-background, text-foreground, bg-card, border-border, bg-primary, bg-accent, ring, etc.) visually change with the selected theme.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Update the bottom ThemeToggleBar to let the user switch among the four themes (White, Black, Orange, Yellow) and ensure aria-label text accurately reflects the action and the available themes.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/ThemeToggleBar.tsx"
@@ -33,18 +44,14 @@
         ]
       },
       {
-        "id": "REQ-3",
-        "summary": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
+        "id": "REQ-4",
+        "summary": "Ensure the circular indicator in ThemeToggleBar continues to reflect the currently active theme colors by relying on existing semantic tokens (e.g., bg-primary and bg-accent) so it updates automatically for White/Black/Orange/Yellow themes as well.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/hooks/useColorScheme.ts",
-          "frontend/src/components/ThemeToggleBar.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/hooks/useColorScheme.ts",
-          "frontend/src/components/ThemeToggleBar.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/ThemeToggleBar.tsx"
         ]
       }
     ]
@@ -55,7 +62,7 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/ThemeToggleBar.tsx",
-    "frontend/src/hooks/useColorScheme.ts",
+    "frontend/src/hooks/useTheme.ts",
     "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",

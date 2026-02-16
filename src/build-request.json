@@ -1,86 +1,96 @@
 {
   "kind": "build_request",
-  "title": "Remove cat icon, add theme-colored circle indicator, and add green to color scheme switcher",
+  "title": "Add White, Black, Orange, and Yellow UI themes",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
+      "text": "Extend the theme system so users can select four themes: White, Black, Orange, and Yellow, with the selection persisted in localStorage and applied on page load.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "can you remove the cat but keep the circle"
+          "can you add a white theme a black theme a orange theme a yellow theme"
         ]
       },
       "acceptanceCriteria": [
-        "ThemeToggleBar no longer renders /assets/generated/cat-icon.dim_64x64.png.",
-        "A circular UI element remains next to the color scheme toggle button in ThemeToggleBar.",
-        "No broken image icon or empty <img> element is present in the ThemeToggleBar."
+        "Theme options include exactly: White, Black, Orange, Yellow.",
+        "Selected theme is persisted under the existing theme storage key (or a clearly documented replacement key with backward compatibility for existing 'light'/'dark' stored values).",
+        "Reloading the page preserves the previously selected theme.",
+        "No console errors occur when switching themes."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
+      "text": "Update the global CSS theme variables in frontend/src/index.css to define appropriate CSS custom property sets for the White, Black, Orange, and Yellow themes so that Tailwind tokens (bg-background, text-foreground, bg-card, border-border, bg-primary, bg-accent, ring, etc.) visually change with the selected theme.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "keep the circle and make it change to the color of the thems"
+          "can you add a white theme a black theme a orange theme a yellow theme"
         ]
       },
       "acceptanceCriteria": [
-        "When the user switches the color scheme, the circle’s fill color changes accordingly without requiring a page reload.",
-        "The circle color is derived from the active theme/color-scheme CSS variables (e.g., primary/accent), not hard-coded to black.",
-        "The circle remains clearly visible in both light and dark theme modes."
+        "Each of the four themes produces a clearly distinct look by changing at least background/foreground/card/border/primary/accent/ring variables.",
+        "Black theme results in a dark UI (equivalent to current dark-mode behavior or better).",
+        "White theme results in a light UI (equivalent to current light-mode behavior or better).",
+        "Orange and Yellow themes apply orange/yellow-forward primary/accent styling while maintaining readable contrast for text and controls."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
+      "text": "Update the bottom ThemeToggleBar to let the user switch among the four themes (White, Black, Orange, Yellow) and ensure aria-label text accurately reflects the action and the available themes.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "recent-messages"
         ],
         "quotes": [
-          "add green to color changer"
+          "can you add a white theme a black theme a orange theme a yellow theme"
         ]
       },
       "acceptanceCriteria": [
-        "The color scheme state supports three values: blue, purple, and green, and continues to persist via localStorage.",
-        "The UI control in ThemeToggleBar cycles through Blue, Purple, and Green and displays the correct label for the current scheme.",
-        "The document root attribute data-color-scheme updates to \"green\" when green is selected.",
-        "frontend/src/index.css includes a green color-scheme override for light mode (:root[data-color-scheme=\"green\"]) and dark mode (.dark[data-color-scheme=\"green\"]) covering primary/accent/ring (and any other scheme-specific variables currently overridden for blue)."
+        "ThemeToggleBar provides a control that cycles or selects White/Black/Orange/Yellow.",
+        "The theme control’s visible label matches the currently selected theme.",
+        "aria-label(s) mention the correct theme names and no longer refer only to 'Light/Dark mode' if that is no longer the only behavior.",
+        "The existing color-scheme switcher (Blue/Purple/Green) continues to work as before."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure the circular indicator in ThemeToggleBar continues to reflect the currently active theme colors by relying on existing semantic tokens (e.g., bg-primary and bg-accent) so it updates automatically for White/Black/Orange/Yellow themes as well.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "can you add a white theme a black theme a orange theme a yellow theme"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Switching to each of the four themes updates the indicator colors without additional user actions.",
+        "Indicator uses semantic theme tokens (primary/accent) rather than hardcoded colors.",
+        "Indicator remains visible with sufficient contrast across all four themes."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (compose them instead).",
-    "Do not edit immutable hook bootstrap files listed in SYSTEM_CONTEXT (frontend/src/hooks/useInternetIdentity.ts / .tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
-    "Keep the backend as single-actor; no backend changes are required for this request."
+    "Do not edit files under frontend/src/components/ui (Shadcn components); only compose them.",
+    "Do not modify immutable paths listed in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Keep backend as single-actor Motoko; no backend changes are required for theme selection."
   ],
   "nonGoals": [
-    "Implementing any new backend APIs or persistence beyond the existing localStorage-based theme/color-scheme settings.",
-    "Adding new authentication or account features.",
-    "Generating or modifying the existing cat image asset (it may remain in the repo even if unused)."
+    "Adding additional authentication methods beyond Internet Identity.",
+    "Adding backend persistence for theme preferences (localStorage-only is sufficient).",
+    "Creating new pages or routes unrelated to theme selection."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-bottom-themetogglebar-to-remove-the-cat-image-while-keeping-a-circular-indicator-next-to-the-color-scheme-toggle",
-      "featureTitle": "Update the bottom ThemeToggleBar to remove the cat image while keeping a circular indicator next to the color scheme toggle.",
+      "featureId": "feature-extend-the-theme-system-so-users-can-select-four-themes-white-black-orange-and-yellow-with-the-selection-persisted-in-localstorage-and-applied-on-page-load",
+      "featureTitle": "Extend the theme system so users can select four themes: White, Black, Orange, and Yellow, with the selection persisted in localStorage and applied on page load.",
       "files": [
-        "frontend/src/components/ThemeToggleBar.tsx"
+        "frontend/src/hooks/useTheme.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -20,10 +20,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-make-the-circular-indicator-in-themetogglebar-automatically-reflect-the-currently-selected-color-scheme-theme-colors-so-that-switching-color-scheme-updates-the-circle-color",
-      "featureTitle": "Make the circular indicator in ThemeToggleBar automatically reflect the currently selected color scheme (theme colors) so that switching color scheme updates the circle color.",
+      "featureId": "feature-update-the-global-css-theme-variables-in-frontend-src-index-css-to-define-appropriate-css-custom-property-sets-for-the-white-black-orange-and-yellow-themes-so-that-tailwind-tokens-bg-background-text-foreground-bg-card-border-border-bg-primary-bg-accent-ring-etc-visually-change-with-the-selected-theme",
+      "featureTitle": "Update the global CSS theme variables in frontend/src/index.css to define appropriate CSS custom property sets for the White, Black, Orange, and Yellow themes so that Tailwind tokens (bg-background, text-foreground, bg-card, border-border, bg-primary, bg-accent, ring, etc.) visually change with the selected theme.",
       "files": [
-        "frontend/src/components/ThemeToggleBar.tsx"
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -38,12 +38,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-extend-the-color-scheme-switcher-to-include-a-green-option-update-color-scheme-state-management-persistence-ui-label-s-aria-label-s-and-add-corresponding-css-variable-overrides-for-green-in-both-light-and-dark-modes",
-      "featureTitle": "Extend the color scheme switcher to include a Green option: update color-scheme state management, persistence, UI label(s), aria-label(s), and add corresponding CSS variable overrides for green in both light and dark modes.",
+      "featureId": "feature-update-the-bottom-themetogglebar-to-let-the-user-switch-among-the-four-themes-white-black-orange-yellow-and-ensure-aria-label-text-accurately-reflects-the-action-and-the-available-themes",
+      "featureTitle": "Update the bottom ThemeToggleBar to let the user switch among the four themes (White, Black, Orange, Yellow) and ensure aria-label text accurately reflects the action and the available themes.",
       "files": [
-        "frontend/src/components/ThemeToggleBar.tsx",
-        "frontend/src/hooks/useColorScheme.ts",
-        "frontend/src/index.css"
+        "frontend/src/components/ThemeToggleBar.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -54,6 +52,24 @@
       ],
       "testIds": [
         "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-circular-indicator-in-themetogglebar-continues-to-reflect-the-currently-active-theme-colors-by-relying-on-existing-semantic-tokens-e-g-bg-primary-and-bg-accent-so-it-updates-automatically-for-white-black-orange-yellow-themes-as-well",
+      "featureTitle": "Ensure the circular indicator in ThemeToggleBar continues to reflect the currently active theme colors by relying on existing semantic tokens (e.g., bg-primary and bg-accent) so it updates automatically for White/Black/Orange/Yellow themes as well.",
+      "files": [
+        "frontend/src/components/ThemeToggleBar.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
       ],
       "confidence": "high"
     }

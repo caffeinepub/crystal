@@ -2,19 +2,34 @@ import { useEffect, useState } from 'react';
 
 const THEME_STORAGE_KEY = 'theme';
 
-type Theme = 'light' | 'dark';
+type Theme = 'white' | 'black' | 'orange' | 'yellow';
 
 function getSystemTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  if (typeof window === 'undefined') return 'white';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'black' : 'white';
+}
+
+function migrateOldTheme(stored: string | null): Theme | null {
+  if (!stored) return null;
+  if (stored === 'light') return 'white';
+  if (stored === 'dark') return 'black';
+  if (stored === 'white' || stored === 'black' || stored === 'orange' || stored === 'yellow') {
+    return stored as Theme;
+  }
+  return null;
 }
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'white';
   
   const stored = localStorage.getItem(THEME_STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') {
-    return stored;
+  const migrated = migrateOldTheme(stored);
+  
+  if (migrated) {
+    if (stored !== migrated) {
+      localStorage.setItem(THEME_STORAGE_KEY, migrated);
+    }
+    return migrated;
   }
   
   return getSystemTheme();
@@ -23,7 +38,9 @@ function getInitialTheme(): Theme {
 function applyTheme(theme: Theme) {
   if (typeof document === 'undefined') return;
   
-  if (theme === 'dark') {
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  if (theme === 'black') {
     document.documentElement.classList.add('dark');
   } else {
     document.documentElement.classList.remove('dark');

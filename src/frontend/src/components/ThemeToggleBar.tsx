@@ -1,4 +1,4 @@
-import { Moon, Sun } from 'lucide-react';
+import { Palette } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { useColorScheme } from '../hooks/useColorScheme';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,15 @@ export function ThemeToggleBar() {
   const { colorScheme, setColorScheme } = useColorScheme();
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    if (theme === 'white') {
+      setTheme('black');
+    } else if (theme === 'black') {
+      setTheme('orange');
+    } else if (theme === 'orange') {
+      setTheme('yellow');
+    } else {
+      setTheme('white');
+    }
   };
 
   const toggleColorScheme = () => {
@@ -19,6 +27,13 @@ export function ThemeToggleBar() {
     } else {
       setColorScheme('blue');
     }
+  };
+
+  const getThemeLabel = () => {
+    if (theme === 'white') return 'White';
+    if (theme === 'black') return 'Black';
+    if (theme === 'orange') return 'Orange';
+    return 'Yellow';
   };
 
   const getColorSchemeLabel = () => {
@@ -35,19 +50,10 @@ export function ThemeToggleBar() {
           size="sm"
           onClick={toggleTheme}
           className="flex items-center gap-2 hover:bg-accent/50"
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          aria-label={`Switch theme. Current: ${getThemeLabel()}. Click to cycle through White, Black, Orange, and Yellow themes.`}
         >
-          {theme === 'light' ? (
-            <>
-              <Moon className="h-4 w-4" />
-              <span className="text-sm font-medium">Dark Mode</span>
-            </>
-          ) : (
-            <>
-              <Sun className="h-4 w-4" />
-              <span className="text-sm font-medium">Light Mode</span>
-            </>
-          )}
+          <Palette className="h-4 w-4" />
+          <span className="text-sm font-medium">{getThemeLabel()}</span>
         </Button>
         
         <div className="h-6 w-px bg-border" />
@@ -65,7 +71,7 @@ export function ThemeToggleBar() {
             </span>
           </Button>
           
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-ring ring-offset-2 ring-offset-background">
             <div className="w-4 h-4 rounded-full bg-accent" />
           </div>
         </div>

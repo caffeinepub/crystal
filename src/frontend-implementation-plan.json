@@ -1,64 +1,72 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "ThemeToggleBar: remove cat icon, theme-driven circle indicator, add Green color scheme",
+  "title": "Add White/Black/Orange/Yellow UI themes with persistence and toggle UI",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Remove the cat image from ThemeToggleBar while keeping a circular indicator next to the color scheme toggle.",
+      "summary": "Extend theme state to support exactly White/Black/Orange/Yellow with localStorage persistence and apply on load (including backward compatibility for existing light/dark values).",
       "acceptanceCriteria": [
-        "ThemeToggleBar no longer renders /assets/generated/cat-icon.dim_64x64.png.",
-        "A circular UI element remains next to the color scheme toggle button in ThemeToggleBar.",
-        "No broken image icon or empty <img> element is present in the ThemeToggleBar."
+        "Theme options include exactly: White, Black, Orange, Yellow.",
+        "Selected theme is persisted under the existing theme storage key (or a clearly documented replacement key with backward compatibility for existing 'light'/'dark' stored values).",
+        "Reloading the page preserves the previously selected theme.",
+        "No console errors occur when switching themes."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ThemeToggleBar.tsx",
+          "path": "frontend/src/hooks/useTheme.ts",
           "operation": "modify",
-          "description": "Remove the <img> usage of the cat asset and replace it with a non-image circular indicator element rendered next to the color scheme toggle (no empty/broken image). Keep using the existing shadcn-ui Button composition; verify the component's usage instructions before implementing."
+          "description": "Update the theme hook to use a 4-theme model (white/black/orange/yellow), migrate existing stored values ('light'->'white', 'dark'->'black') while continuing to read/write the existing storage key, and apply the selected theme on load by setting a document-level attribute (e.g., data-theme) and maintaining the 'dark' class for the Black theme for compatibility with existing dark-mode styling."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Make the ThemeToggleBar circular indicator automatically reflect the active color scheme using theme CSS variables.",
+      "summary": "Define CSS custom property sets for White/Black/Orange/Yellow themes so semantic Tailwind tokens (background/foreground/card/border/primary/accent/ring/etc.) change with the selected theme.",
       "acceptanceCriteria": [
-        "When the user switches the color scheme, the circle’s fill color changes accordingly without requiring a page reload.",
-        "The circle color is derived from the active theme/color-scheme CSS variables (e.g., primary/accent), not hard-coded to black.",
-        "The circle remains clearly visible in both light and dark theme modes."
+        "Each of the four themes produces a clearly distinct look by changing at least background/foreground/card/border/primary/accent/ring variables.",
+        "Black theme results in a dark UI (equivalent to current dark-mode behavior or better).",
+        "White theme results in a light UI (equivalent to current light-mode behavior or better).",
+        "Orange and Yellow themes apply orange/yellow-forward primary/accent styling while maintaining readable contrast for text and controls."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ThemeToggleBar.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Style the circular indicator using Tailwind color tokens backed by CSS variables (e.g., primary/accent/ring) so it automatically updates when data-color-scheme changes and remains visible in light/dark. Keep composition with shadcn-ui Button; verify the component's usage instructions before implementing."
+          "description": "Extend the base theme variable definitions to include four explicit theme variable sets keyed off the document theme selector (e.g., :root[data-theme=\"white\"], :root[data-theme=\"black\"], :root[data-theme=\"orange\"], :root[data-theme=\"yellow\"]). Ensure each set updates at least --background/--foreground/--card/--border/--primary/--accent/--ring (and related foreground vars) to create distinct White/Black/Orange/Yellow looks, while keeping the existing Blue/Purple/Green data-color-scheme overrides functioning."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add a Green option to the color scheme switcher with state/persistence updates and CSS variable overrides for light and dark modes.",
+      "summary": "Update ThemeToggleBar to switch among White/Black/Orange/Yellow with accurate labels and aria-labels while keeping the existing Blue/Purple/Green color-scheme control.",
       "acceptanceCriteria": [
-        "The color scheme state supports three values: blue, purple, and green, and continues to persist via localStorage.",
-        "The UI control in ThemeToggleBar cycles through Blue, Purple, and Green and displays the correct label for the current scheme.",
-        "The document root attribute data-color-scheme updates to \"green\" when green is selected.",
-        "frontend/src/index.css includes a green color-scheme override for light mode (:root[data-color-scheme=\"green\"]) and dark mode (.dark[data-color-scheme=\"green\"]) covering primary/accent/ring (and any other scheme-specific variables currently overridden for blue)."
+        "ThemeToggleBar provides a control that cycles or selects White/Black/Orange/Yellow.",
+        "The theme control’s visible label matches the currently selected theme.",
+        "aria-label(s) mention the correct theme names and no longer refer only to 'Light/Dark mode' if that is no longer the only behavior.",
+        "The existing color-scheme switcher (Blue/Purple/Green) continues to work as before."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useColorScheme.ts",
+          "path": "frontend/src/components/ThemeToggleBar.tsx",
           "operation": "modify",
-          "description": "Extend color-scheme state management to support 'green' in addition to existing values, including localStorage validation/persistence and applying data-color-scheme='green' to the document root when selected."
-        },
+          "description": "Replace the current light/dark toggle behavior with a 4-theme cycle/select control (White, Black, Orange, Yellow), update the visible label to match the active theme, and update aria-label text to reference the correct theme names and available options; keep the existing Blue/Purple/Green color-scheme toggle unchanged."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Ensure the ThemeToggleBar circular indicator automatically reflects the active theme using semantic tokens and remains visible across all themes.",
+      "acceptanceCriteria": [
+        "Switching to each of the four themes updates the indicator colors without additional user actions.",
+        "Indicator uses semantic theme tokens (primary/accent) rather than hardcoded colors.",
+        "Indicator remains visible with sufficient contrast across all four themes."
+      ],
+      "file_operations": [
         {
           "path": "frontend/src/components/ThemeToggleBar.tsx",
           "operation": "modify",
-          "description": "Update the color scheme toggle logic to cycle through Blue, Purple, and Green; update displayed label(s) and aria-label(s) to reflect all three schemes. Continue composing the existing shadcn-ui Button; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add CSS variable overrides for the green color scheme for both light (:root[data-color-scheme=\"green\"]) and dark (.dark[data-color-scheme=\"green\"]) modes, covering the same set of scheme-specific variables currently overridden for blue (including primary/accent/ring and related chart/sidebar variables)."
+          "description": "Adjust the indicator styling (if needed) to rely strictly on semantic token classes (e.g., bg-primary, bg-accent, border-border, ring-ring, ring-offset-background) so it stays legible and updates automatically for White/Black/Orange/Yellow without introducing hardcoded colors."
         }
       ]
     }
