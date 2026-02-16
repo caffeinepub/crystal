@@ -1,0 +1,13 @@
+{
+  "frontend/src/App.tsx": "Main application component that sets up TanStack Router with routes for home, Gen 4 Elc options, Gen 5 options, checkout, and order confirmation pages, includes Toaster for notifications.",
+  "frontend/src/pages/Home.tsx": "Home page displaying the Crystal header and two clickable tiles (Gen 4 and Gen 5) with ♦ character icons, both navigating to their respective options pages, styled with liquid glass effects.",
+  "frontend/src/pages/Gen4ElcOptions.tsx": "Gen 4 Elc options page showing three models with prices, ♦ character icons, Buy buttons for Gen 4 and Gen 4 Pro, and an MGP ID validation dialog for Gen 4 Racer that enforces 'mgp-' + digits format and navigates to checkout on valid input.",
+  "frontend/src/index.css": "Global styles with gray and purple OKLCH color palette for both light and dark modes, creating a cohesive theme with neutral gray backgrounds and purple primary/accent colors.",
+  "frontend/tailwind.config.js": "Tailwind configuration with gray/purple color tokens and updated glass shadow utilities with purple-tinted neutral shadows instead of blue.",
+  "frontend/src/hooks/useQueries.ts": "Placeholder file for future React Query hooks (currently empty as no backend integration is needed).",
+  "frontend/src/pages/Checkout.tsx": "Checkout page that displays a form with shipping address and payment information fields (all optional), a Done button that generates a random arrival date and navigates to order confirmation, and improved back navigation that returns to the correct options page based on the 'from' search parameter.",
+  "frontend/src/pages/OrderConfirmation.tsx": "Order confirmation page that displays \"Order placed\" message with a randomly generated arrival date, styled with the gray and purple theme using token-based colors.",
+  "frontend/src/pages/Gen5Options.tsx": "Gen 5 options page showing three models with prices, ♦ character icons, Pre Order buttons for all models, and an MGP ID validation dialog for Gen 5 Racer that enforces 'mgp-' + digits format and navigates to checkout on valid input.",
+  "frontend/src/components/DiamondIcon.tsx": "Reusable component that renders the ♦ character as a styled icon with configurable sizing to replace diamond image icons throughout the app.",
+  "frontend/src/lib/mgp.ts": "Utility module for MGP ID validation that enforces the pattern 'mgp-' followed by one or more digits, with helper functions for validation and error messages."
+}

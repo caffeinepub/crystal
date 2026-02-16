@@ -1,0 +1,77 @@
+{
+  "kind": "build_request",
+  "title": "Switch app theme to gray+purple and require MGP ID format before navigating to checkout",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-24",
+      "text": "Update the app’s visual theme to a cohesive gray + purple palette (replacing the current black/blue liquid-glass palette) by adjusting the Tailwind/CSS design tokens so that surfaces, borders, text, and primary/accent colors render as gray-forward with purple highlights across Home, options pages, dialogs, checkout, and order confirmation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "yes can you make it gray and purple"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Primary/accent colors throughout the app render as purple hues, with backgrounds/cards/borders in gray tones (no blue-forward palette).",
+        "Existing token-based classes (e.g., bg-background, bg-card, text-foreground, border-border, text-primary, bg-primary) automatically reflect the new gray+purple theme without needing per-component color overrides.",
+        "The DiamondIcon (♦) continues to use token-based coloring (e.g., text-primary) and appears consistent with the updated gray+purple theme on Home, Gen 4 options, and Gen 5 options."
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "text": "Enforce MGP ID format validation everywhere the user enters an MGP ID (Gen 4 Racer dialog and Gen 5 Racer dialog): the value must start with the literal prefix \"mgp-\" and be followed by digits only (any length, any numeric sequence).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "also make the mgp id have to start with mgp- and it has to be  only numbers but any numbers"
+        ]
+      },
+      "acceptanceCriteria": [
+        "In both Gen 4 Racer and Gen 5 Racer dialogs, an MGP ID is considered valid only if it matches the pattern: mgp- followed by one or more digits (e.g., mgp-1, mgp-12345).",
+        "Inputs that do not match the pattern (e.g., empty, missing prefix, mgp- with no digits, mgp-12a, MGP-123) are treated as invalid and cannot be confirmed/submitted.",
+        "User-facing validation feedback is shown in English when the entered value is invalid (wording can be simple, e.g., \"MGP ID must start with 'mgp-' followed by digits only.\")."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Change the MGP ID confirm flow so that after the user enters a valid MGP ID and confirms, the app navigates directly to the existing checkout page (/checkout) instead of showing a success/accepted panel; pass the selected model in router search params so the checkout header shows the correct model.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "and after you type your mgp it brings you to the checkout"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On Gen 4 Racer: confirming a valid MGP ID navigates to /checkout with search params that include model=\"Gen 4 Racer\" (and sets an appropriate 'from' value so the checkout back button returns to Gen 4 options).",
+        "On Gen 5 Racer: confirming a valid MGP ID navigates to /checkout with search params that include model=\"Gen 5 Racer\" and from=\"gen5\" so the checkout back button returns to Gen 5 options.",
+        "The prior in-dialog success state (e.g., \"Mgp ID Accepted\") is no longer shown as the end state; navigation to checkout occurs immediately upon successful confirm.",
+        "If the MGP ID is invalid, the app stays in the dialog and does not navigate."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui/*.",
+    "Do not add any real payment processing; checkout remains a mock flow.",
+    "Keep TanStack Router routing structure intact; do not break existing routes like '/', '/gen4-elc', '/gen5', '/checkout', and '/order-confirmation'.",
+    "Backend is single-actor Motoko; no backend changes are required for this request."
+  ],
+  "nonGoals": [
+    "Implementing server-side storage or backend verification of MGP IDs.",
+    "Adding third-party payments, webhooks, or external APIs.",
+    "Changing product lineup, pricing values, or existing navigation destinations beyond the specified MGP->checkout flow."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

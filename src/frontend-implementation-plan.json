@@ -1,0 +1,91 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Gray+purple theme tokens and MGP ID validation before checkout navigation",
+  "requirements": [
+    {
+      "id": "REQ-24",
+      "summary": "Replace the current black/blue liquid-glass palette with a cohesive gray-forward theme with purple primary/accent via token updates so existing token-based classes update automatically across the app.",
+      "acceptanceCriteria": [
+        "Primary/accent colors throughout the app render as purple hues, with backgrounds/cards/borders in gray tones (no blue-forward palette).",
+        "Existing token-based classes (e.g., bg-background, bg-card, text-foreground, border-border, text-primary, bg-primary) automatically reflect the new gray+purple theme without needing per-component color overrides.",
+        "The DiamondIcon (♦) continues to use token-based coloring (e.g., text-primary) and appears consistent with the updated gray+purple theme on Home, Gen 4 options, and Gen 5 options."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Update the CSS variable design tokens for light/dark modes to a gray + purple palette (background/surface/border/text neutrals; primary/accent purple hues) so existing token-based Tailwind classes reflect the new theme everywhere."
+        },
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Align the root-level Tailwind CSS variable tokens with the same gray + purple palette as the app (keep variables consistent across build entrypoints)."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust any liquid-glass specific styling values that are blue-forward (e.g., glass shadow rgba) to neutral/gray-forward with subtle purple tint so the overall theme no longer reads blue."
+        },
+        {
+          "path": "frontend/src/pages/OrderConfirmation.tsx",
+          "operation": "modify",
+          "description": "Replace hard-coded green success styling with token-based classes (e.g., primary/accent/muted) so order confirmation visuals remain cohesive with the gray+purple theme without introducing non-token color islands. (Uses existing shadcn-ui components; verify the component's usage instructions before implementing.)"
+        }
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "summary": "Validate MGP ID format in both Gen 4 Racer and Gen 5 Racer dialogs: must be exactly 'mgp-' followed by one or more digits, with English validation feedback and blocked confirmation when invalid.",
+      "acceptanceCriteria": [
+        "In both Gen 4 Racer and Gen 5 Racer dialogs, an MGP ID is considered valid only if it matches the pattern: mgp- followed by one or more digits (e.g., mgp-1, mgp-12345).",
+        "Inputs that do not match the pattern (e.g., empty, missing prefix, mgp- with no digits, mgp-12a, MGP-123) are treated as invalid and cannot be confirmed/submitted.",
+        "User-facing validation feedback is shown in English when the entered value is invalid (wording can be simple, e.g., \"MGP ID must start with 'mgp-' followed by digits only.\")."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/mgp.ts",
+          "operation": "create",
+          "description": "Add a small shared utility for MGP ID validation (e.g., a function that checks /^mgp-\\d+$/) so both dialogs enforce the exact same rules."
+        },
+        {
+          "path": "frontend/src/pages/Gen4ElcOptions.tsx",
+          "operation": "modify",
+          "description": "Update the Gen 4 Racer MGP dialog input handling to use the shared MGP validator, show an English inline error message when invalid, and disable/ignore Confirm (including Enter key submit) unless the value matches 'mgp-' + digits only. (Uses existing shadcn-ui Dialog/Input/Button/Label; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/pages/Gen5Options.tsx",
+          "operation": "modify",
+          "description": "Update the Gen 5 Racer pre-order dialog input handling to use the shared MGP validator, show an English inline error message when invalid, and disable/ignore Confirm (including Enter key submit) unless the value matches 'mgp-' + digits only. (Uses existing shadcn-ui Dialog/Input/Button/Label; verify the component's usage instructions before implementing.)"
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "On valid MGP ID confirmation, immediately navigate to the existing /checkout page with correct router search params and remove the prior in-dialog success end state; do not navigate on invalid input.",
+      "acceptanceCriteria": [
+        "On Gen 4 Racer: confirming a valid MGP ID navigates to /checkout with search params that include model=\"Gen 4 Racer\" (and sets an appropriate 'from' value so the checkout back button returns to Gen 4 options).",
+        "On Gen 5 Racer: confirming a valid MGP ID navigates to /checkout with search params that include model=\"Gen 5 Racer\" and from=\"gen5\" so the checkout back button returns to Gen 5 options.",
+        "The prior in-dialog success state (e.g., \"Mgp ID Accepted\") is no longer shown as the end state; navigation to checkout occurs immediately upon successful confirm.",
+        "If the MGP ID is invalid, the app stays in the dialog and does not navigate."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Gen4ElcOptions.tsx",
+          "operation": "modify",
+          "description": "Remove the Gen 4 Racer dialog success panel state and change the confirm handler to (1) validate via the shared MGP validator and (2) navigate directly to /checkout with search params including model:\"Gen 4 Racer\" and a 'from' value that routes back to Gen 4 options (e.g., from:\"gen4-elc\"). Keep dialog open/no navigation on invalid. (Uses existing shadcn-ui Dialog/Input/Button; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/pages/Gen5Options.tsx",
+          "operation": "modify",
+          "description": "Remove the Gen 5 Racer dialog success panel state and change the confirm handler to (1) validate via the shared MGP validator and (2) navigate directly to /checkout with search params including model:\"Gen 5 Racer\" and from:\"gen5\". Keep dialog open/no navigation on invalid. (Uses existing shadcn-ui Dialog/Input/Button; verify the component's usage instructions before implementing.)"
+        },
+        {
+          "path": "frontend/src/pages/Checkout.tsx",
+          "operation": "modify",
+          "description": "Confirm checkout continues to read the router search params (model/from) so the header shows the correct model and the back button returns to the correct options page for both Gen 4 Racer (from gen4 options) and Gen 5 Racer (from gen5). (Uses existing shadcn-ui components; verify the component's usage instructions before implementing.)"
+        }
+      ]
+    }
+  ]
+}

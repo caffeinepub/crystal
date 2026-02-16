@@ -1,0 +1,64 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-app-s-visual-theme-to-a-cohesive-gray-purple-palette-replacing-the-current-black-blue-liquid-glass-palette-by-adjusting-the-tailwind-css-design-tokens-so-that-surfaces-borders-text-and-primary-accent-colors-render-as-gray-forward-with-purple-highlights-across-home-options-pages-dialogs-checkout-and-order-confirmation",
+      "featureTitle": "Update the app’s visual theme to a cohesive gray + purple palette (replacing the current black/blue liquid-glass palette) by adjusting the Tailwind/CSS design tokens so that surfaces, borders, text, and primary/accent colors render as gray-forward with purple highlights across Home, options pages, dialogs, checkout, and order confirmation.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/src/pages/OrderConfirmation.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-enforce-mgp-id-format-validation-everywhere-the-user-enters-an-mgp-id-gen-4-racer-dialog-and-gen-5-racer-dialog-the-value-must-start-with-the-literal-prefix-mgp-and-be-followed-by-digits-only-any-length-any-numeric-sequence",
+      "featureTitle": "Enforce MGP ID format validation everywhere the user enters an MGP ID (Gen 4 Racer dialog and Gen 5 Racer dialog): the value must start with the literal prefix \"mgp-\" and be followed by digits only (any length, any numeric sequence).",
+      "files": [
+        "frontend/src/lib/mgp.ts",
+        "frontend/src/pages/Gen4ElcOptions.tsx",
+        "frontend/src/pages/Gen5Options.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-25"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-change-the-mgp-id-confirm-flow-so-that-after-the-user-enters-a-valid-mgp-id-and-confirms-the-app-navigates-directly-to-the-existing-checkout-page-checkout-instead-of-showing-a-success-accepted-panel-pass-the-selected-model-in-router-search-params-so-the-checkout-header-shows-the-correct-model",
+      "featureTitle": "Change the MGP ID confirm flow so that after the user enters a valid MGP ID and confirms, the app navigates directly to the existing checkout page (/checkout) instead of showing a success/accepted panel; pass the selected model in router search params so the checkout header shows the correct model.",
+      "files": [
+        "frontend/src/pages/Gen4ElcOptions.tsx",
+        "frontend/src/pages/Gen5Options.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-26"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

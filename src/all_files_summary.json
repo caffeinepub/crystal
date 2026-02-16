@@ -1,0 +1,22 @@
+{
+  "backend/main.mo": "Minimal Motoko canister defining an empty actor.",
+  "feature_evidence.json": "JSON report describing implemented features, affected files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Text file containing high‑level summaries of various frontend source files.",
+  "frontend/index.css": "Defines global CSS variables and theme tokens for a color system using OKLCH values, with light and dark mode.",
+  "frontend/index.html": "Base HTML page that loads the React app via main.tsx.",
+  "frontend/src/App.tsx": "Sets up routing with TanStack Router and defines routes for home, options, checkout, and confirmation pages.",
+  "frontend/src/components/DiamondIcon.tsx": "Simple component rendering a styled diamond character icon.",
+  "frontend/src/hooks/useActor.ts": "Creates and manages a backend actor based on the current identity, with query invalidation on change.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Implements Internet Identity login, state management, and context provider logic.",
+  "frontend/src/hooks/useQueries.ts": "Placeholder file exporting nothing, reserved for future backend queries.",
+  "frontend/src/index.css": "Tailwind base styles and gray‑purple theme tokens for light and dark modes.",
+  "frontend/src/lib/mgp.ts": "Provides MGP ID validation and an error‑message helper enforcing the 'mgp-' + digits format.",
+  "frontend/src/main.tsx": "Entrypoint that initializes React, QueryClient, InternetIdentityProvider, and loads global styles.",
+  "frontend/src/pages/Checkout.tsx": "Checkout form collecting shipping and payment details and generating a random arrival date before navigating to order confirmation.",
+  "frontend/src/pages/Gen4ElcOptions.tsx": "Displays Gen 4 model options with MGP ID validation and routes users to checkout based on selection.",
+  "frontend/src/pages/Gen5Options.tsx": "Shows Gen 5 pre‑order options with MGP ID validation and navigates to checkout for selected models.",
+  "frontend/src/pages/Home.tsx": "Landing page linking to Gen 4 and Gen 5 options with simple navigation UI.",
+  "frontend/src/pages/OrderConfirmation.tsx": "Displays order confirmation details using query params and offers navigation back to home.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme colors, fonts, containers, and utilities with plugins enabled.",
+  "project_state.json": "Defines the project's current state, required UI/theme updates, new Gen 5 features, pricing, navigation flows, and Mgp ID validation rules. Also records architectural notes and previously implemented features."
+}
