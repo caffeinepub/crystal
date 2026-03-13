@@ -29,6 +29,7 @@ const BASE_PRICES: Record<string, number> = {
   "Gen 5": 1000,
   "Gen 5 Pro": 2500,
   "Gen 5 Racer": 5000,
+  "Gen 6 E": 900,
   "Gen 6": 1500,
   "Gen 6 Pro": 3000,
   "Gen 6 Racer": 7500,

@@ -83,7 +83,44 @@ export default function Gen6Options() {
       </header>
 
       <main className="flex-1 container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {/* Gen 6 E */}
+          <Card className="flex flex-col border border-border/50 bg-card/60 backdrop-blur-xl hover:border-primary/50 hover:shadow-glass-lg transition-all duration-300 relative">
+            <Badge className="absolute top-4 right-4 bg-green-600 text-white">
+              Budget
+            </Badge>
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <DiamondIcon className="w-6 h-6 text-2xl" />
+                Gen 6 E
+              </CardTitle>
+              <CardDescription>Economy model 0-110 Mph</CardDescription>
+              <div className="text-3xl font-bold text-primary mt-2">$900</div>
+            </CardHeader>
+            <CardContent className="flex-1">
+              <div className="h-48 bg-gradient-to-br from-primary/15 to-accent/15 rounded-lg flex items-center justify-center mb-4 backdrop-blur-sm border border-primary/10">
+                <div className="text-7xl font-bold text-primary/30">6E</div>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• Affordable entry point</li>
+                <li>• Solid performance</li>
+                <li>• Gen 6 tech, lower price</li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button
+                className="w-full"
+                size="lg"
+                variant="outline"
+                onClick={() => handlePreOrder("Gen 6 E")}
+                data-ocid="gen6.e.primary_button"
+              >
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Pre Order
+              </Button>
+            </CardFooter>
+          </Card>
+
           {/* Gen 6 */}
           <Card className="flex flex-col border border-border/50 bg-card/60 backdrop-blur-xl hover:border-primary/50 hover:shadow-glass-lg transition-all duration-300">
             <CardHeader>

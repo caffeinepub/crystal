@@ -23,6 +23,7 @@ const NEON_COLORS = [
 ];
 
 const BASE_PRICES: Record<string, number> = {
+  "Gen 5 E": 700,
   "Gen 5": 1000,
   "Gen 5 Pro": 2500,
   "Gen 5 Racer": 5000,

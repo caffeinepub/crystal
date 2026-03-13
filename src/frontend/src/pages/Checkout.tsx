@@ -57,6 +57,19 @@ export default function Checkout() {
         day: "2-digit",
         year: "2-digit",
       });
+    } else if (from === "past-gens") {
+      // 1–5 weeks from 3/12/26
+      const startDate = new Date("2026-03-19");
+      const endDate = new Date("2026-04-16");
+      const randomTime =
+        startDate.getTime() +
+        Math.random() * (endDate.getTime() - startDate.getTime());
+      const randomDate = new Date(randomTime);
+      arrivalDate = randomDate.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+      });
     } else {
       // Date between 02/25/2026 and 05/25/2026
       const startDate = new Date("2026-02-25");
@@ -80,6 +93,8 @@ export default function Checkout() {
       navigate({ to: "/gen5" });
     } else if (from === "gen6") {
       navigate({ to: "/gen6" });
+    } else if (from === "past-gens") {
+      navigate({ to: "/past-gens" });
     } else {
       navigate({ to: "/gen4-elc" });
     }
