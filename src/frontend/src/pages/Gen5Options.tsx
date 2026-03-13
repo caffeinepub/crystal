@@ -1,23 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ShoppingCart } from 'lucide-react';
-import { DiamondIcon } from '@/components/DiamondIcon';
-import { validateMgpId, getMgpErrorMessage } from '@/lib/mgp';
+import { DiamondIcon } from "@/components/DiamondIcon";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { getMgpErrorMessage } from "@/lib/mgp";
+import { useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, ShoppingCart } from "lucide-react";
+import { useState } from "react";
 
 export default function Gen5Options() {
   const navigate = useNavigate();
-  const [showPreOrderDialog, setShowPreOrderDialog] = useState(false);
-  const [mgpInput, setMgpInput] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [showMgpDialog, setShowMgpDialog] = useState(false);
+  const [mgpInput, setMgpInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handlePreOrder = (model: string) => {
-    navigate({ to: '/checkout', search: { model, from: 'gen5' } });
+  const handleBuy = (model: string) => {
+    navigate({ to: "/customize", search: { model, from: "gen5" } });
   };
 
   const handleConfirmMgpId = () => {
@@ -26,23 +40,22 @@ export default function Gen5Options() {
       setErrorMessage(error);
       return;
     }
-    
-    // Valid Mgp licence - navigate to checkout
-    navigate({ to: '/checkout', search: { model: 'Gen 5 Racer', from: 'gen5' } });
-    handleClosePreOrderDialog();
+    navigate({
+      to: "/customize",
+      search: { model: "Gen 5 Racer", from: "gen5" },
+    });
+    handleCloseMgpDialog();
   };
 
-  const handleClosePreOrderDialog = () => {
-    setShowPreOrderDialog(false);
-    setMgpInput('');
-    setErrorMessage('');
+  const handleCloseMgpDialog = () => {
+    setShowMgpDialog(false);
+    setMgpInput("");
+    setErrorMessage("");
   };
 
   const handleInputChange = (value: string) => {
     setMgpInput(value);
-    if (errorMessage) {
-      setErrorMessage('');
-    }
+    if (errorMessage) setErrorMessage("");
   };
 
   return (
@@ -51,8 +64,9 @@ export default function Gen5Options() {
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
-            onClick={() => navigate({ to: '/' })}
+            onClick={() => navigate({ to: "/" })}
             className="mb-4 -ml-2"
+            data-ocid="gen5.link"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -60,7 +74,7 @@ export default function Gen5Options() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent">
             Gen 5 Options
           </h1>
-          <p className="text-muted-foreground mt-2">Pre-order the next generation</p>
+          <p className="text-muted-foreground mt-2">Choose your Gen 5 model</p>
         </div>
       </header>
 
@@ -90,10 +104,11 @@ export default function Gen5Options() {
               <Button
                 className="w-full"
                 size="lg"
-                onClick={() => handlePreOrder('Gen 5')}
+                onClick={() => handleBuy("Gen 5")}
+                data-ocid="gen5.base.primary_button"
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                Pre Order
+                Buy
               </Button>
             </CardFooter>
           </Card>
@@ -123,10 +138,11 @@ export default function Gen5Options() {
               <Button
                 className="w-full"
                 size="lg"
-                onClick={() => handlePreOrder('Gen 5 Pro')}
+                onClick={() => handleBuy("Gen 5 Pro")}
+                data-ocid="gen5.pro.primary_button"
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                Pre Order
+                Buy
               </Button>
             </CardFooter>
           </Card>
@@ -156,10 +172,11 @@ export default function Gen5Options() {
                 className="w-full"
                 size="lg"
                 variant="secondary"
-                onClick={() => setShowPreOrderDialog(true)}
+                onClick={() => setShowMgpDialog(true)}
+                data-ocid="gen5.racer.open_modal_button"
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                Pre Order
+                Buy
               </Button>
             </CardFooter>
           </Card>
@@ -169,10 +186,12 @@ export default function Gen5Options() {
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Built with love using{' '}
+            © {new Date().getFullYear()} Built with love using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'crystal-app'
+                typeof window !== "undefined"
+                  ? window.location.hostname
+                  : "crystal-app",
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -185,12 +204,15 @@ export default function Gen5Options() {
       </footer>
 
       {/* Mgp licence Dialog */}
-      <Dialog open={showPreOrderDialog} onOpenChange={handleClosePreOrderDialog}>
-        <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50">
+      <Dialog open={showMgpDialog} onOpenChange={handleCloseMgpDialog}>
+        <DialogContent
+          className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50"
+          data-ocid="gen5.dialog"
+        >
           <DialogHeader>
             <DialogTitle>Enter Mgp licence</DialogTitle>
             <DialogDescription>
-              Enter your Mgp licence to proceed to checkout for Gen 5 Racer.
+              Enter your Mgp licence to proceed for Gen 5 Racer.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -202,23 +224,32 @@ export default function Gen5Options() {
                 value={mgpInput}
                 onChange={(e) => handleInputChange(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleConfirmMgpId();
-                  }
+                  if (e.key === "Enter") handleConfirmMgpId();
                 }}
-                className={errorMessage ? 'border-destructive' : ''}
+                className={errorMessage ? "border-destructive" : ""}
+                data-ocid="gen5.input"
               />
               {errorMessage && (
-                <p className="text-sm text-destructive">{errorMessage}</p>
+                <p
+                  className="text-sm text-destructive"
+                  data-ocid="gen5.error_state"
+                >
+                  {errorMessage}
+                </p>
               )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={handleClosePreOrderDialog}>
+              <Button
+                variant="outline"
+                onClick={handleCloseMgpDialog}
+                data-ocid="gen5.cancel_button"
+              >
                 Cancel
               </Button>
-              <Button 
+              <Button
                 onClick={handleConfirmMgpId}
                 disabled={!mgpInput.trim()}
+                data-ocid="gen5.confirm_button"
               >
                 Confirm
               </Button>

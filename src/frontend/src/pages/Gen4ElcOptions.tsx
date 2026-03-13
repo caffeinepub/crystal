@@ -1,23 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ArrowLeft, ShoppingCart, IdCard } from 'lucide-react';
-import { DiamondIcon } from '@/components/DiamondIcon';
-import { Badge } from '@/components/ui/badge';
-import { validateMgpId, getMgpErrorMessage } from '@/lib/mgp';
+import { DiamondIcon } from "@/components/DiamondIcon";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { getMgpErrorMessage } from "@/lib/mgp";
+import { useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, IdCard, ShoppingCart } from "lucide-react";
+import { useState } from "react";
 
 export default function Gen4ElcOptions() {
   const navigate = useNavigate();
   const [showMgpDialog, setShowMgpDialog] = useState(false);
-  const [mgpInput, setMgpInput] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [mgpInput, setMgpInput] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleBuy = (model: string) => {
-    navigate({ to: '/checkout', search: { model, from: 'gen4-elc' } });
+    navigate({ to: "/customize", search: { model, from: "gen4-elc" } });
   };
 
   const handleConfirmMgpId = () => {
@@ -26,22 +40,23 @@ export default function Gen4ElcOptions() {
       setErrorMessage(error);
       return;
     }
-    
-    // Valid Mgp licence - navigate to checkout
-    navigate({ to: '/checkout', search: { model: 'Gen 4 Racer', from: 'gen4-elc' } });
+    navigate({
+      to: "/customize",
+      search: { model: "Gen 4 Racer", from: "gen4-elc" },
+    });
     handleCloseMgpDialog();
   };
 
   const handleCloseMgpDialog = () => {
     setShowMgpDialog(false);
-    setMgpInput('');
-    setErrorMessage('');
+    setMgpInput("");
+    setErrorMessage("");
   };
 
   const handleInputChange = (value: string) => {
     setMgpInput(value);
     if (errorMessage) {
-      setErrorMessage('');
+      setErrorMessage("");
     }
   };
 
@@ -51,8 +66,9 @@ export default function Gen4ElcOptions() {
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
-            onClick={() => navigate({ to: '/' })}
+            onClick={() => navigate({ to: "/" })}
             className="mb-4 -ml-2"
+            data-ocid="gen4.link"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -60,7 +76,9 @@ export default function Gen4ElcOptions() {
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent">
             Gen 4 Elc Options
           </h1>
-          <p className="text-muted-foreground mt-2">Choose your perfect model</p>
+          <p className="text-muted-foreground mt-2">
+            Choose your perfect model
+          </p>
         </div>
       </header>
 
@@ -90,7 +108,8 @@ export default function Gen4ElcOptions() {
               <Button
                 className="w-full"
                 size="lg"
-                onClick={() => handleBuy('Gen 4')}
+                onClick={() => handleBuy("Gen 4")}
+                data-ocid="gen4.base.primary_button"
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Buy
@@ -123,7 +142,8 @@ export default function Gen4ElcOptions() {
               <Button
                 className="w-full"
                 size="lg"
-                onClick={() => handleBuy('Gen 4 Pro')}
+                onClick={() => handleBuy("Gen 4 Pro")}
+                data-ocid="gen4.pro.primary_button"
               >
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Buy
@@ -157,6 +177,7 @@ export default function Gen4ElcOptions() {
                 size="lg"
                 variant="secondary"
                 onClick={() => setShowMgpDialog(true)}
+                data-ocid="gen4.racer.open_modal_button"
               >
                 <IdCard className="w-4 h-4 mr-2" />
                 Show valid Mgp licence
@@ -169,10 +190,12 @@ export default function Gen4ElcOptions() {
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Built with love using{' '}
+            © {new Date().getFullYear()} Built with love using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'crystal-app'
+                typeof window !== "undefined"
+                  ? window.location.hostname
+                  : "crystal-app",
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -186,39 +209,53 @@ export default function Gen4ElcOptions() {
 
       {/* Mgp licence Dialog */}
       <Dialog open={showMgpDialog} onOpenChange={handleCloseMgpDialog}>
-        <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50">
+        <DialogContent
+          className="sm:max-w-md bg-card/95 backdrop-blur-xl border-border/50"
+          data-ocid="gen4.dialog"
+        >
           <DialogHeader>
             <DialogTitle>Enter Mgp licence</DialogTitle>
             <DialogDescription>
-              Enter your Mgp licence to proceed to checkout for Gen 4 Racer.
+              Enter your Mgp licence to proceed for Gen 4 Racer.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="mgp-input">Your Mgp licence</Label>
+              <Label htmlFor="mgp-input-gen4">Your Mgp licence</Label>
               <Input
-                id="mgp-input"
+                id="mgp-input-gen4"
                 placeholder="Mgp-ABC123"
                 value={mgpInput}
                 onChange={(e) => handleInputChange(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === "Enter") {
                     handleConfirmMgpId();
                   }
                 }}
-                className={errorMessage ? 'border-destructive' : ''}
+                className={errorMessage ? "border-destructive" : ""}
+                data-ocid="gen4.input"
               />
               {errorMessage && (
-                <p className="text-sm text-destructive">{errorMessage}</p>
+                <p
+                  className="text-sm text-destructive"
+                  data-ocid="gen4.error_state"
+                >
+                  {errorMessage}
+                </p>
               )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={handleCloseMgpDialog}>
+              <Button
+                variant="outline"
+                onClick={handleCloseMgpDialog}
+                data-ocid="gen4.cancel_button"
+              >
                 Cancel
               </Button>
-              <Button 
+              <Button
                 onClick={handleConfirmMgpId}
                 disabled={!mgpInput.trim()}
+                data-ocid="gen4.confirm_button"
               >
                 Confirm
               </Button>

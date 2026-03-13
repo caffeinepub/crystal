@@ -4,7 +4,7 @@ interface DiamondIconProps {
 
 export function DiamondIcon({ className = "w-6 h-6" }: DiamondIconProps) {
   return (
-    <span 
+    <span
       className={`inline-flex items-center justify-center text-primary font-bold ${className}`}
       style={{ lineHeight: 1 }}
     >

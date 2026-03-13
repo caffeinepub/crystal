@@ -1,26 +1,41 @@
-import { useState } from 'react';
-import { useNavigate, useSearch } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const search = useSearch({ strict: false }) as { model?: string; from?: string };
-  const model = search.model || 'Gen 4';
-  const from = search.from || 'gen4-elc';
+  const search = useSearch({ strict: false }) as {
+    model?: string;
+    from?: string;
+    totalPrice?: string;
+    srtCare?: string;
+  };
+  const model = search.model || "Gen 4";
+  const from = search.from || "gen4-elc";
+  const totalPrice = search.totalPrice
+    ? `$${Number(search.totalPrice).toLocaleString()}`
+    : null;
+  const hasSrtCare = search.srtCare === "yes";
 
   const [formData, setFormData] = useState({
-    name: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    cardNumber: '',
-    expiry: '',
-    cvv: '',
+    name: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -28,21 +43,45 @@ export default function Checkout() {
   };
 
   const handleDone = () => {
-    // Generate random date between 02/25/2026 and 05/25/2026
-    const startDate = new Date('2026-02-25');
-    const endDate = new Date('2026-05-25');
-    const randomTime = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
-    const randomDate = new Date(randomTime);
-    const arrivalDate = randomDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+    let arrivalDate: string;
+    if (from === "gen6") {
+      // Date between 1/2/27 and 2/3/27
+      const startDate = new Date("2027-01-02");
+      const endDate = new Date("2027-02-03");
+      const randomTime =
+        startDate.getTime() +
+        Math.random() * (endDate.getTime() - startDate.getTime());
+      const randomDate = new Date(randomTime);
+      arrivalDate = randomDate.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+      });
+    } else {
+      // Date between 02/25/2026 and 05/25/2026
+      const startDate = new Date("2026-02-25");
+      const endDate = new Date("2026-05-25");
+      const randomTime =
+        startDate.getTime() +
+        Math.random() * (endDate.getTime() - startDate.getTime());
+      const randomDate = new Date(randomTime);
+      arrivalDate = randomDate.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+      });
+    }
 
-    navigate({ to: '/order-confirmation', search: { model, arrivalDate } });
+    navigate({ to: "/order-confirmation", search: { model, arrivalDate } });
   };
 
   const handleBack = () => {
-    if (from === 'gen5') {
-      navigate({ to: '/gen5' });
+    if (from === "gen5") {
+      navigate({ to: "/gen5" });
+    } else if (from === "gen6") {
+      navigate({ to: "/gen6" });
     } else {
-      navigate({ to: '/gen4-elc' });
+      navigate({ to: "/gen4-elc" });
     }
   };
 
@@ -50,18 +89,16 @@ export default function Checkout() {
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-border/50 bg-card/40 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            className="mb-4 -ml-2"
-          >
+          <Button variant="ghost" onClick={handleBack} className="mb-4 -ml-2">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Options
           </Button>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-br from-primary via-accent to-primary bg-clip-text text-transparent">
-            Checkout — {model}
+            Checkout
           </h1>
-          <p className="text-muted-foreground mt-2">Enter your details to complete your order</p>
+          <p className="text-muted-foreground mt-2">
+            Enter your details to complete your order
+          </p>
         </div>
       </header>
 
@@ -69,7 +106,15 @@ export default function Checkout() {
         <Card className="max-w-2xl mx-auto border border-border/50 bg-card/60 backdrop-blur-xl">
           <CardHeader>
             <CardTitle className="text-2xl">Order Information</CardTitle>
-            <CardDescription>Fill in your shipping and payment details</CardDescription>
+            <CardDescription>
+              {model}
+              {totalPrice && (
+                <span className="ml-2 font-semibold text-primary">
+                  {totalPrice}
+                  {hasSrtCare ? " + $50/mo SRT Care" : ""}
+                </span>
+              )}
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Shipping Information */}
@@ -82,7 +127,7 @@ export default function Checkout() {
                     id="name"
                     placeholder="John Doe"
                     value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
@@ -91,7 +136,9 @@ export default function Checkout() {
                     id="address"
                     placeholder="123 Main St"
                     value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("address", e.target.value)
+                    }
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -101,7 +148,9 @@ export default function Checkout() {
                       id="city"
                       placeholder="New York"
                       value={formData.city}
-                      onChange={(e) => handleInputChange('city', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("city", e.target.value)
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -110,7 +159,9 @@ export default function Checkout() {
                       id="state"
                       placeholder="NY"
                       value={formData.state}
-                      onChange={(e) => handleInputChange('state', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("state", e.target.value)
+                      }
                     />
                   </div>
                 </div>
@@ -120,7 +171,9 @@ export default function Checkout() {
                     id="zipCode"
                     placeholder="10001"
                     value={formData.zipCode}
-                    onChange={(e) => handleInputChange('zipCode', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("zipCode", e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -136,7 +189,9 @@ export default function Checkout() {
                     id="cardNumber"
                     placeholder="1234 5678 9012 3456"
                     value={formData.cardNumber}
-                    onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("cardNumber", e.target.value)
+                    }
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -146,7 +201,9 @@ export default function Checkout() {
                       id="expiry"
                       placeholder="MM/YY"
                       value={formData.expiry}
-                      onChange={(e) => handleInputChange('expiry', e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("expiry", e.target.value)
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -155,18 +212,14 @@ export default function Checkout() {
                       id="cvv"
                       placeholder="123"
                       value={formData.cvv}
-                      onChange={(e) => handleInputChange('cvv', e.target.value)}
+                      onChange={(e) => handleInputChange("cvv", e.target.value)}
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            <Button
-              className="w-full"
-              size="lg"
-              onClick={handleDone}
-            >
+            <Button className="w-full" size="lg" onClick={handleDone}>
               Done
             </Button>
           </CardContent>
@@ -176,10 +229,12 @@ export default function Checkout() {
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Built with love using{' '}
+            © {new Date().getFullYear()} Built with love using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'crystal-app'
+                typeof window !== "undefined"
+                  ? window.location.hostname
+                  : "crystal-app",
               )}`}
               target="_blank"
               rel="noopener noreferrer"

@@ -1,7 +1,14 @@
-import { useNavigate } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChevronRight } from 'lucide-react';
-import { DiamondIcon } from '@/components/DiamondIcon';
+import { DiamondIcon } from "@/components/DiamondIcon";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useNavigate } from "@tanstack/react-router";
+import { ChevronRight, Clock } from "lucide-react";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -17,10 +24,11 @@ export default function Home() {
       </header>
 
       <main className="flex-1 container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <Card
             className="group cursor-pointer transition-all duration-300 hover:shadow-glass-lg hover:scale-[1.02] border border-border/50 bg-card/60 backdrop-blur-xl hover:border-primary/50"
-            onClick={() => navigate({ to: '/gen4-elc' })}
+            onClick={() => navigate({ to: "/gen4-elc" })}
+            data-ocid="home.item.1"
           >
             <CardHeader>
               <CardTitle className="text-2xl flex items-center justify-between">
@@ -30,7 +38,9 @@ export default function Home() {
                 </div>
                 <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
               </CardTitle>
-              <CardDescription className="text-base">Click to see options</CardDescription>
+              <CardDescription className="text-base">
+                Click to see options
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center backdrop-blur-sm border border-primary/10">
@@ -41,7 +51,8 @@ export default function Home() {
 
           <Card
             className="group cursor-pointer transition-all duration-300 hover:shadow-glass-lg hover:scale-[1.02] border border-border/50 bg-card/60 backdrop-blur-xl hover:border-primary/50"
-            onClick={() => navigate({ to: '/gen5' })}
+            onClick={() => navigate({ to: "/gen5" })}
+            data-ocid="home.item.2"
           >
             <CardHeader>
               <CardTitle className="text-2xl flex items-center justify-between">
@@ -51,7 +62,9 @@ export default function Home() {
                 </div>
                 <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
               </CardTitle>
-              <CardDescription className="text-base">Click to see options</CardDescription>
+              <CardDescription className="text-base">
+                Click to see options
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center backdrop-blur-sm border border-primary/10">
@@ -59,20 +72,59 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+
+          <Card
+            className="group cursor-pointer transition-all duration-300 hover:shadow-glass-lg hover:scale-[1.02] border border-border/50 bg-card/60 backdrop-blur-xl hover:border-primary/50"
+            onClick={() => navigate({ to: "/gen6" })}
+            data-ocid="home.item.3"
+          >
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <DiamondIcon className="w-8 h-8 text-3xl" />
+                  Gen 6
+                </div>
+                <ChevronRight className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+              </CardTitle>
+              <CardDescription className="text-base">
+                Click to see options
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center backdrop-blur-sm border border-primary/10">
+                <div className="text-6xl font-bold text-primary/30">6</div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-        
+
         <div className="text-center mt-8">
           <p className="text-sm text-white">© Made by Benny Yt</p>
+        </div>
+
+        <div className="flex justify-center mt-8">
+          <Button
+            size="lg"
+            variant="outline"
+            className="gap-2 border-border/60 bg-card/60 backdrop-blur-xl hover:border-primary/50 hover:bg-primary/10 text-foreground"
+            onClick={() => navigate({ to: "/past-gens" })}
+            data-ocid="home.past-gens.button"
+          >
+            <Clock className="w-5 h-5" />
+            Past Gens
+          </Button>
         </div>
       </main>
 
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Built with love using{' '}
+            © {new Date().getFullYear()} Built with love using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'crystal-app'
+                typeof window !== "undefined"
+                  ? window.location.hostname
+                  : "crystal-app",
               )}`}
               target="_blank"
               rel="noopener noreferrer"

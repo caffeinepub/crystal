@@ -1,51 +1,51 @@
-import { Palette } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
-import { useColorScheme } from '../hooks/useColorScheme';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { Palette } from "lucide-react";
+import { useColorScheme } from "../hooks/useColorScheme";
+import { useTheme } from "../hooks/useTheme";
 
 export function ThemeToggleBar() {
   const { theme, setTheme } = useTheme();
   const { colorScheme, setColorScheme } = useColorScheme();
 
   const toggleTheme = () => {
-    if (theme === 'white') {
-      setTheme('black');
+    if (theme === "white") {
+      setTheme("black");
     } else {
-      setTheme('white');
+      setTheme("white");
     }
   };
 
   const toggleColorScheme = () => {
-    if (colorScheme === 'purple') {
-      setColorScheme('blue');
-    } else if (colorScheme === 'blue') {
-      setColorScheme('green');
-    } else if (colorScheme === 'green') {
-      setColorScheme('orange');
-    } else if (colorScheme === 'orange') {
-      setColorScheme('yellow');
-    } else if (colorScheme === 'yellow') {
-      setColorScheme('red');
-    } else if (colorScheme === 'red') {
-      setColorScheme('white');
+    if (colorScheme === "purple") {
+      setColorScheme("blue");
+    } else if (colorScheme === "blue") {
+      setColorScheme("green");
+    } else if (colorScheme === "green") {
+      setColorScheme("orange");
+    } else if (colorScheme === "orange") {
+      setColorScheme("yellow");
+    } else if (colorScheme === "yellow") {
+      setColorScheme("red");
+    } else if (colorScheme === "red") {
+      setColorScheme("white");
     } else {
-      setColorScheme('purple');
+      setColorScheme("purple");
     }
   };
 
   const getThemeLabel = () => {
-    if (theme === 'white') return 'White';
-    return 'Black';
+    if (theme === "white") return "White";
+    return "Black";
   };
 
   const getColorSchemeLabel = () => {
-    if (colorScheme === 'purple') return 'Purple';
-    if (colorScheme === 'blue') return 'Blue';
-    if (colorScheme === 'green') return 'Green';
-    if (colorScheme === 'orange') return 'Orange';
-    if (colorScheme === 'yellow') return 'Yellow';
-    if (colorScheme === 'red') return 'Red';
-    return 'White';
+    if (colorScheme === "purple") return "Purple";
+    if (colorScheme === "blue") return "Blue";
+    if (colorScheme === "green") return "Green";
+    if (colorScheme === "orange") return "Orange";
+    if (colorScheme === "yellow") return "Yellow";
+    if (colorScheme === "red") return "Red";
+    return "White";
   };
 
   return (
@@ -61,9 +61,9 @@ export function ThemeToggleBar() {
           <Palette className="h-4 w-4" />
           <span className="text-sm font-medium">{getThemeLabel()}</span>
         </Button>
-        
+
         <div className="h-6 w-px bg-border" />
-        
+
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -76,7 +76,7 @@ export function ThemeToggleBar() {
               {getColorSchemeLabel()}
             </span>
           </Button>
-          
+
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-ring ring-offset-2 ring-offset-background">
             <div className="w-4 h-4 rounded-full bg-accent" />
           </div>

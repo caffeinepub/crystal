@@ -1,13 +1,22 @@
-import { useNavigate, useSearch } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { CheckCircle2, Home } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { CheckCircle2, Home } from "lucide-react";
 
 export default function OrderConfirmation() {
   const navigate = useNavigate();
-  const search = useSearch({ strict: false }) as { model?: string; arrivalDate?: string };
-  const model = search.model || 'Gen 4';
-  const arrivalDate = search.arrivalDate || '02/25/26';
+  const search = useSearch({ strict: false }) as {
+    model?: string;
+    arrivalDate?: string;
+  };
+  const model = search.model || "Gen 4";
+  const arrivalDate = search.arrivalDate || "02/25/26";
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -28,7 +37,9 @@ export default function OrderConfirmation() {
               </div>
             </div>
             <CardTitle className="text-3xl">Order Placed</CardTitle>
-            <CardDescription className="text-base">Your {model} is on its way!</CardDescription>
+            <CardDescription className="text-base">
+              Your {model} is on its way!
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 text-center backdrop-blur-sm">
@@ -37,14 +48,20 @@ export default function OrderConfirmation() {
             </div>
 
             <div className="space-y-3 text-sm text-muted-foreground">
-              <p>Thank you for your purchase! We'll send you tracking information once your order ships.</p>
-              <p>You'll receive an email confirmation shortly with your order details.</p>
+              <p>
+                Thank you for your purchase! We'll send you tracking information
+                once your order ships.
+              </p>
+              <p>
+                You'll receive an email confirmation shortly with your order
+                details.
+              </p>
             </div>
 
             <Button
               className="w-full"
               size="lg"
-              onClick={() => navigate({ to: '/' })}
+              onClick={() => navigate({ to: "/" })}
             >
               <Home className="w-4 h-4 mr-2" />
               Back to Home
@@ -56,10 +73,12 @@ export default function OrderConfirmation() {
       <footer className="border-t border-border/50 bg-card/40 backdrop-blur-xl mt-auto">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Built with love using{' '}
+            © {new Date().getFullYear()} Built with love using{" "}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                typeof window !== 'undefined' ? window.location.hostname : 'crystal-app'
+                typeof window !== "undefined"
+                  ? window.location.hostname
+                  : "crystal-app",
               )}`}
               target="_blank"
               rel="noopener noreferrer"
